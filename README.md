@@ -10,8 +10,8 @@ A collection of c++11 Space Partitioning templates for Cinder
 Each classes share the same syntax for common tasks :
 
 ```c++
-// Create a 2d KdTree
-KdTree2 kdTree;
+// Create a 3d KdTree (use alias for KdTree<3,float>)
+sp::KdTree3 kdTree; 
 
 // Insert elements
 for( auto node : mNodes ) {
