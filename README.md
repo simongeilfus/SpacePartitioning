@@ -100,6 +100,16 @@ Grid2 k = 4
 	Clearing structure 			96.164ms
 _____________________________________________________________________________________________
 
+Unbounded-Grid2 k = 1
+
+	Memory Footprint 			16.2114mb
+	Inserting 1000000 objects 	7199.5ms
+	Range Search 				0.238001ms 		418 neighbors
+	Range Search lambda 			0.0879765ms 		418 neighbors
+	Nearest Search 				0.0680089ms 		[   -4.055,   -4.027]
+	Clearing structure 			92.284ms
+_____________________________________________________________________________________________
+
 
 
 3d Brute Force
@@ -157,6 +167,17 @@ Grid3 k = 4
 	Nearest Search 				0.109017ms 			[    4.103,    4.016,    5.801]
 	Clearing structure 			112.836ms
 _____________________________________________________________________________________________
+
+Unbounded-Grid3 k = 3
+
+	Memory Footprint 			25.9244mb
+	Inserting 1000000 objects 	11005.8ms
+	Range Search 				0.0190139ms 		4 neighbors
+	Range Search lambda 			0.00500679ms 		4 neighbors
+	Nearest Search 				0.0960231ms 		[    4.103,    4.016,    5.801]
+	Clearing structure 			117.241ms
+_____________________________________________________________________________________________
+
 
 
 ```
