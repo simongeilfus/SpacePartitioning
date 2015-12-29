@@ -46,8 +46,8 @@ Running [```test.cpp```](test.cpp) should output something along those lines. It
 ```
 2d Brute Force
 
-	Range search 			49.102ms 		418 neighbors
-	Nearest search 			43.73ms 		[   -4.055,   -4.027]
+	Range search 				49.102ms		418 neighbors
+	Nearest search 				43.73ms			[   -4.055,   -4.027]
 _____________________________________________________________________________________________
 
 KdTree2
@@ -105,8 +105,8 @@ Unbounded-Grid2 k = 1
 	Memory Footprint 			16.2114mb
 	Inserting 1000000 objects 	7199.5ms
 	Range Search 				0.238001ms 		418 neighbors
-	Range Search lambda 			0.0879765ms 		418 neighbors
-	Nearest Search 				0.0680089ms 		[   -4.055,   -4.027]
+	Range Search lambda 		0.0879765ms		418 neighbors
+	Nearest Search 				0.0680089ms 	[   -4.055,   -4.027]
 	Clearing structure 			92.284ms
 _____________________________________________________________________________________________
 
@@ -114,8 +114,8 @@ ________________________________________________________________________________
 
 3d Brute Force
 
-	Range search 			43.762ms 		4 neighbors
-	Nearest search 			47.096ms 		[    4.103,    4.016,    5.801]
+	Range search 				43.762ms			4 neighbors
+	Nearest search 				47.096ms			[    4.103,    4.016,    5.801]
 _____________________________________________________________________________________________
 
 KdTree3
@@ -173,7 +173,7 @@ Unbounded-Grid3 k = 3
 	Memory Footprint 			25.9244mb
 	Inserting 1000000 objects 	11005.8ms
 	Range Search 				0.0190139ms 		4 neighbors
-	Range Search lambda 			0.00500679ms 		4 neighbors
+	Range Search lambda 		0.00500679ms 		4 neighbors
 	Nearest Search 				0.0960231ms 		[    4.103,    4.016,    5.801]
 	Clearing structure 			117.241ms
 _____________________________________________________________________________________________
