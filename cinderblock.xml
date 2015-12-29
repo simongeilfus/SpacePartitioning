@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="SpacePartitioning"
+	id="sg.spacepartitioning"
+	author="Simon Geilfus"
+	summary="Space Partitioning Algorithms"
+	license="BSD 2-clause “Simplified” License"
+	>
+	<includePath>include</includePath>
+	<header>include/SpacePartitioning.h</header>
+	<source>src/SpacePartitioning.cpp</source>	
+</block>
+</cinder>
