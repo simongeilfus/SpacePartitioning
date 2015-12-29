@@ -40,6 +40,32 @@ auto neighbors = kdTree.rangeSearch( vec3( 0.0f ), 35.0f,
 
 ```
 
+**KdTree:**
+
+A KdTree is a versatile space partitioning structure. They work in most situations and are really fast for nearest neighbor searches. If memory or insertion time is important they might not be the right choice. This implementation is not particulary optimised for range searches.
+
+```KdTrees``` come in the following flavors :
+```c++
+typedef KdTree<2, float>	KdTree2;
+typedef KdTree<3, float>	KdTree3;
+typedef KdTree<4, float>	KdTree4;
+typedef KdTree<2, double>	dKdTree2;
+typedef KdTree<3, double>	dKdTree3;
+typedef KdTree<4, double>	dKdTree4;
+```
+
+**Grid:**
+
+A Bin-Lattice spatial subdivision structure or uniform grid is easy and particulary fast. They clearly excel at range searches, usually have a small memory footprint and have fast insertion time. When it's not clear which structure to choose, Grid might be the first one to try. The choice of the ```k``` parameter is critical and might influence a lot the performance depending on the data. Providing the bounding rectangle or bounding box of the data is prefered if you need fast insertion. If you ommit the bounds parameters, insertion will obviously be much slower.
+
+```Grids``` come in the following flavors :
+```c++
+typedef Grid<2, float>		Grid2;
+typedef Grid<3, float>		Grid3;
+typedef Grid<2, double>		dGrid2;
+typedef Grid<3, double>		dGrid3;
+```
+
 **Test suite:**  
 Running [```test.cpp```](test.cpp) should output something along those lines. It might be usefull to run these tests with your own data as the results might changes drastically according its type and distribution.
 
