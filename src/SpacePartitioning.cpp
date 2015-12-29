@@ -23,7 +23,7 @@
  */
 
 #include "SpacePartitioning.h"
-#include "cinder/Log.h"
+#include "cinder/Utilities.h"
 #include <limits>
 
 namespace SpacePartitioning {
@@ -431,7 +431,7 @@ void Grid<DIM,T>::insert( const vec_t &position, void *data )
 	if( j >= 0 && j < mGrid.size() )
 		mGrid[j].push_back( new Node( position, data ) );
 	else
-		throw GridOutOfBoundsException();
+		throw GridOutOfBoundsException( ci::toString( position ) );
 }
 template<uint8_t DIM, class T>
 void Grid<DIM,T>::insert( Node *node )
@@ -445,7 +445,7 @@ void Grid<DIM,T>::insert( Node *node )
 	if( j >= 0 && j < mGrid.size() )
 		mGrid[j].push_back( node );
 	else
-		throw GridOutOfBoundsException();
+		throw GridOutOfBoundsException( ci::toString( node->getPosition() ) );
 }
 template<uint8_t DIM, class T>
 void Grid<DIM,T>::clear()
@@ -547,7 +547,7 @@ void Grid<DIM,T>::resize( uint32_t k )
 	mK          = k;
 	mCellSize   = 1 << k;
 	mOffset     = -mMin;
-	mNumCells   = glm::ceil( ( mMax - mMin ) / static_cast<T>( mCellSize ) );
+	mNumCells   = glm::ceil( ( ( mMax - mMin ) + vec_t( 1 ) ) / static_cast<T>( mCellSize ) );
 	mGrid.resize( GridTraits<DIM,T>::gridSize( mNumCells ) );
 	
 	// Re-insert old nodes
@@ -574,9 +574,45 @@ template<class T>
 struct HashTableTraits<2,T> {
 	static uint32_t getHash( const typename HashTable<2,T>::vec_t &position, const typename HashTable<2,T>::vec_t &cellSize, uint32_t tableSize )
 	{
-		const typename HashTable<3,T>::ivec_t largePrime( 73856093, 19349663, 83492791 );
+		const typename HashTable<2,T>::ivec_t largePrime( 73856093, 19349663 );
 		typename HashTable<2,T>::ivec_t p = glm::floor( position / cellSize );
 		return ( ( p.x * largePrime.x ) ^ ( p.y * largePrime.y ) ) % tableSize;
+	}
+	static void rangeSearch( std::vector<typename HashTable<2,T>::NodePair> *results, const typename HashTable<2,T>::Vector &hashTable, const typename HashTable<2,T>::vec_t &position, T radius, const typename HashTable<2,T>::vec_t &minCell, const typename HashTable<2,T>::vec_t &maxCell, const typename HashTable<2,T>::vec_t &cellSize, uint32_t tableSize )
+	{
+		T distSq;
+		T radiusSq = radius * radius;
+		typename HashTable<2,T>::vec_t pos;
+		for( pos.y = minCell.y; pos.y < maxCell.y; pos.y += cellSize.y ) {
+			for( pos.x = minCell.x; pos.x < maxCell.x; pos.x += cellSize.x ) {
+				const std::vector<typename HashTable<2,T>::Node*>& cell = hashTable[HashTableTraits<2,T>::getHash( pos, cellSize, tableSize )];
+				for( const auto& node : cell ) {
+					distSq = glm::distance2( position, node->getPosition() );
+					if( distSq < radiusSq ) {
+						results->emplace_back( std::make_pair( node, distSq ) );
+					}
+				}
+			}
+		}
+		
+	}
+	static void rangeSearch( const std::function<void(typename HashTable<2,T>::Node*,T)> &visitor, const typename HashTable<2,T>::Vector &hashTable, const typename HashTable<2,T>::vec_t &position, T radius, const typename HashTable<2,T>::vec_t &minCell, const typename HashTable<2,T>::vec_t &maxCell, const typename HashTable<2,T>::vec_t &cellSize, uint32_t tableSize )
+	{
+		T distSq;
+		T radiusSq = radius * radius;
+		typename HashTable<2,T>::vec_t pos;
+		for( pos.y = minCell.y; pos.y < maxCell.y; pos.y += cellSize.y ) {
+			for( pos.x = minCell.x; pos.x < maxCell.x; pos.x += cellSize.x ) {
+				const std::vector<typename HashTable<2,T>::Node*>& cell = hashTable[HashTableTraits<2,T>::getHash( pos, cellSize, tableSize )];
+				for( const auto& node : cell ) {
+					distSq = glm::distance2( position, node->getPosition() );
+					if( distSq < radiusSq ) {
+						visitor( node, distSq );
+					}
+				}
+			}
+		}
+		
 	}
 };
 
@@ -588,10 +624,61 @@ struct HashTableTraits<3,T> {
 		typename HashTable<3,T>::ivec_t p = glm::floor( position / cellSize );
 		return ( ( p.x * largePrime.x ) ^ ( p.y * largePrime.y ) ^ ( p.z * largePrime.z ) ) % tableSize;
 	}
+	static void rangeSearch( std::vector<typename HashTable<3,T>::NodePair> *results, const typename HashTable<3,T>::Vector &hashTable, const typename HashTable<3,T>::vec_t &position, T radius, const typename HashTable<3,T>::vec_t &minCell, const typename HashTable<3,T>::vec_t &maxCell, const typename HashTable<3,T>::vec_t &cellSize, uint32_t tableSize )
+	{
+		T distSq;
+		T radiusSq = radius * radius;
+		typename HashTable<3,T>::vec_t pos;
+		for( pos.z = minCell.z; pos.z < maxCell.z; pos.z += cellSize.z ) {
+			for( pos.y = minCell.y; pos.y < maxCell.y; pos.y += cellSize.y ) {
+				for( pos.x = minCell.x; pos.x < maxCell.x; pos.x += cellSize.x ) {
+					const std::vector<typename HashTable<3,T>::Node*>& cell = hashTable[HashTableTraits<3,T>::getHash( pos, cellSize, tableSize )];
+					for( const auto& node : cell ) {
+						distSq = glm::distance2( position, node->getPosition() );
+						if( distSq < radiusSq ) {
+							results->emplace_back( std::make_pair( node, distSq ) );
+						}
+					}
+				}
+			}
+		}
+	}
+	static void rangeSearch( const std::function<void(typename HashTable<3,T>::Node*,T)> &visitor, const typename HashTable<3,T>::Vector &hashTable, const typename HashTable<3,T>::vec_t &position, T radius, const typename HashTable<3,T>::vec_t &minCell, const typename HashTable<3,T>::vec_t &maxCell, const typename HashTable<3,T>::vec_t &cellSize, uint32_t tableSize )
+	{
+		T distSq;
+		T radiusSq = radius * radius;
+		typename HashTable<3,T>::vec_t pos;
+		for( pos.z = minCell.z; pos.z < maxCell.z; pos.z += cellSize.z ) {
+			for( pos.y = minCell.y; pos.y < maxCell.y; pos.y += cellSize.y ) {
+				for( pos.x = minCell.x; pos.x < maxCell.x; pos.x += cellSize.x ) {
+					const std::vector<typename HashTable<3,T>::Node*>& cell = hashTable[HashTableTraits<3,T>::getHash( pos, cellSize, tableSize )];
+					for( const auto& node : cell ) {
+						distSq = glm::distance2( position, node->getPosition() );
+						if( distSq < radiusSq ) {
+							visitor( node, distSq );
+						}
+					}
+				}
+			}
+		}
+	}
 };
 	
 template<uint8_t DIM, class T>
+HashTable<DIM,T>::Node::Node( const vec_t &position, void *data )
+: mPosition( position ), mData( data )
+{
+}
+	
+template<uint8_t DIM, class T>
 HashTable<DIM,T>::HashTable( const vec_t &cellSize, uint32_t tableSize )
+: mCellSize( cellSize ), mHashTableSize( tableSize ), mMin( 0 ), mMax( 10 ), mOffset( -mMin )
+{
+	for( size_t i = 0; i < mHashTableSize; i++ )
+		mHashTable.push_back( std::vector<Node*>() );
+}
+template<uint8_t DIM, class T>
+HashTable<DIM,T>::HashTable( const vec_t &min, const vec_t &max, const vec_t &cellSize, uint32_t tableSize )
 : mCellSize( cellSize ), mHashTableSize( tableSize )
 {
 	for( size_t i = 0; i < mHashTableSize; i++ )
@@ -629,23 +716,53 @@ size_t HashTable<DIM,T>::size() const
 	}
 	return size;
 }
-
+	
+// TODO: Must be a better way to do this
 template<uint8_t DIM, class T>
 typename HashTable<DIM,T>::Node* HashTable<DIM,T>::nearestNeighborSearch( const vec_t &position, T *distanceSq ) const
 {
-	
+	// Grow search radius until found something
+	// TODO: !!! Might grow forever !!!
+	std::vector<typename HashTable<DIM,T>::NodePair> results;
+	T cellSize = static_cast<T>( mCellSize.x );
+	while( ! results.size() ) {
+		results = rangeSearch( position, cellSize );
+		cellSize *= 2;
+	}
+
+	// Once we have nodes to look at, iterate and find the closest one
+	Node* nearestNode = nullptr;
+	T minDist = std::numeric_limits<T>::max();
+	for( const auto& node : results ) {
+		if( node.second < minDist ) {
+			nearestNode = node.first;
+			minDist = node.second;
+		}
+	}
+	if( distanceSq != nullptr )
+		*distanceSq = minDist;
+
+	return nearestNode;
 }
 
 template<uint8_t DIM, class T>
 std::vector<typename HashTable<DIM,T>::NodePair> HashTable<DIM,T>::rangeSearch( const vec_t &position, T radius ) const
 {
-	
+	vec_t radiusVec = vec_t( radius );
+	vec_t min       = glm::clamp( position - radiusVec, mMin, mMax + vec_t( 1 ) );
+	vec_t max       = glm::clamp( position + radiusVec, mMin, mMax + vec_t( 1 ) );
+	std::vector<typename HashTable<DIM,T>::NodePair> results;
+	HashTableTraits<DIM,T>::rangeSearch( &results, mHashTable, position, radius, min, max + vec_t( mCellSize ), mCellSize, mHashTableSize );
+	return results;
 }
 
 template<uint8_t DIM, class T>
 void HashTable<DIM,T>::rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const
 {
-	
+	vec_t radiusVec = vec_t( radius );
+	vec_t min       = glm::clamp( position - radiusVec, mMin, mMax + vec_t( 1 ) );
+	vec_t max       = glm::clamp( position + radiusVec, mMin, mMax + vec_t( 1 ) );
+	HashTableTraits<DIM,T>::rangeSearch( visitor, mHashTable, position, radius, min, max + vec_t( mCellSize ), mCellSize, mHashTableSize );
 }
 	
 // explicit template instantiations

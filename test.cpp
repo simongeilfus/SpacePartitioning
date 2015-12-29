@@ -101,9 +101,9 @@ int main( int argc, char* argv[] )
 	vec3 min3d = vec3( numeric_limits<float>::max() ), max3d = vec3( numeric_limits<float>::min() );
 	vector<vec2> dataSet2d;
 	vector<vec3> dataSet3d;
-	for( int i = 0; i < 500000; i++ ) {
-		vec2 p2d = -vec2( randFloat(), randFloat() ) * 200.0f - vec2( 4.0f );
-		vec3 p3d = -vec3( randFloat(), randFloat(), randFloat() ) * 200.0f - vec3( 4.0f );
+	for( int i = 0; i < 1000000; i++ ) {
+		vec2 p2d = vec2( randFloat(), randFloat() ) * 200.0f;
+		vec3 p3d = vec3( randFloat(), randFloat(), randFloat() ) * 200.0f;
 		dataSet2d.push_back( p2d );
 		dataSet3d.push_back( p3d );
 		min2d = glm::min( min2d, p2d );
@@ -111,26 +111,6 @@ int main( int argc, char* argv[] )
 		min3d = glm::min( min3d, p3d );
 		max3d = glm::max( max3d, p3d );
 	}
-	
-	for( int i = 0; i < 500000; i++ ) {
-		vec2 p2d = vec2( randFloat(), randFloat() ) * 200.0f + vec2( 4.0f );
-		vec3 p3d = vec3( randFloat(), randFloat(), randFloat() ) * 200.0f + vec3( 4.0f );
-		dataSet2d.push_back( p2d );
-		dataSet3d.push_back( p3d );
-		min2d = glm::min( min2d, p2d );
-		max2d = glm::max( max2d, p2d );
-		min3d = glm::min( min3d, p3d );
-		max3d = glm::max( max3d, p3d );
-	}
-	/*dataSet2d.push_back( vec2(-0.1) );
-	dataSet2d.push_back( vec2(-5) );
-	dataSet2d.push_back( vec2(-12) );
-	dataSet2d.push_back( vec2(-120) );
-	//dataSet2d.push_back( vec2(-1200) );
-	dataSet3d.push_back( vec3(-0.1) );
-	dataSet3d.push_back( vec3(-5) );
-	dataSet3d.push_back( vec3(-12) );*/
-	
 	
 	cout << "2d set bounds " << min2d << " " << max2d << endl;
 	cout << "3d set bounds " << min3d << " " << max3d << endl;
@@ -143,8 +123,15 @@ int main( int argc, char* argv[] )
 	test<sp::Grid2,vec2>( "Grid2 k = 1", new sp::Grid2( min2d, max2d, 1 ), dataSet2d, neighbors2d, nearest2d );
 	test<sp::Grid2,vec2>( "Grid2 k = 2", new sp::Grid2( min2d, max2d, 2 ), dataSet2d, neighbors2d, nearest2d );
 	test<sp::Grid2,vec2>( "Grid2 k = 3", new sp::Grid2( min2d, max2d, 3 ), dataSet2d, neighbors2d, nearest2d );
-	test<sp::Grid2,vec2>( "Grid2 k = 4", new sp::Grid2( min2d, max2d, 3 ), dataSet2d, neighbors2d, nearest2d );
-	//test<sp::Grid2,vec2>( "Unbounded-Grid2", new sp::Grid2(), dataSet2d, neighbors2d, nearest2d );
+	test<sp::Grid2,vec2>( "Grid2 k = 4", new sp::Grid2( min2d, max2d, 4 ), dataSet2d, neighbors2d, nearest2d );
+	test<sp::Grid2,vec2>( "Unbounded-Grid2 k = 1", new sp::Grid2( 1 ), dataSet2d, neighbors2d, nearest2d );
+	
+	// HashTable needs more work
+	/*test<sp::HashTable2,vec2>( "HashTable2 c = vec2( 10 ) s = 7500", new sp::HashTable2( min2d, max2d, vec2( 10 ), 7500 ), dataSet2d, neighbors2d, nearest2d );
+	test<sp::HashTable2,vec2>( "HashTable2 c = vec2( 10 ) s = 7900", new sp::HashTable2( min2d, max2d, vec2( 10 ), 7900 ), dataSet2d, neighbors2d, nearest2d );
+	test<sp::HashTable2,vec2>( "HashTable2 c = vec2( 10 ) s = 8000", new sp::HashTable2( min2d, max2d, vec2( 10 ), 8000 ), dataSet2d, neighbors2d, nearest2d );
+	test<sp::HashTable2,vec2>( "HashTable2 c = vec2( 10 ) s = 8100", new sp::HashTable2( min2d, max2d, vec2( 10 ), 8100 ), dataSet2d, neighbors2d, nearest2d );
+	test<sp::HashTable2,vec2>( "HashTable2 c = vec2( 10 ) s = 8500", new sp::HashTable2( min2d, max2d, vec2( 10 ), 8500 ), dataSet2d, neighbors2d, nearest2d );*/
 	
 	// 3d Tests
 	vec3 nearest3d;
@@ -154,8 +141,8 @@ int main( int argc, char* argv[] )
 	test<sp::Grid3,vec3>( "Grid3 k = 1", new sp::Grid3( min3d, max3d, 1 ), dataSet3d, neighbors3d, nearest3d );
 	test<sp::Grid3,vec3>( "Grid3 k = 2", new sp::Grid3( min3d, max3d, 2 ), dataSet3d, neighbors3d, nearest3d );
 	test<sp::Grid3,vec3>( "Grid3 k = 3", new sp::Grid3( min3d, max3d, 3 ), dataSet3d, neighbors3d, nearest3d );
-	test<sp::Grid3,vec3>( "Grid3 k = 4", new sp::Grid3( min3d, max3d, 3 ), dataSet3d, neighbors3d, nearest3d );
-	//test<sp::Grid3,vec3>( "Unbounded-Grid3", new sp::Grid3(), dataSet3d, neighbors3d, nearest3d );
+	test<sp::Grid3,vec3>( "Grid3 k = 4", new sp::Grid3( min3d, max3d, 4 ), dataSet3d, neighbors3d, nearest3d );
+	test<sp::Grid3,vec3>( "Unbounded-Grid3 k = 3", new sp::Grid3( 3 ), dataSet3d, neighbors3d, nearest3d );
 	
 	return 0;
 }

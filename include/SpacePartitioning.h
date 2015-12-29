@@ -169,7 +169,7 @@ protected:
 	
 class GridOutOfBoundsException : public ci::Exception {
 public:
-	GridOutOfBoundsException() : ci::Exception( "Out Of Bounds" ) {}
+	GridOutOfBoundsException( const std::string &value ) : ci::Exception( value + " out of bounds" ) {}
 };
 	
 //! Represents a Spatial Hash Table partitioning structure
@@ -180,6 +180,7 @@ public:
 	using ivec_t = typename Structure<DIM,int>::vec_t;
 	
 	HashTable( const vec_t &cellSize, uint32_t tableSize );
+	HashTable( const vec_t &min, const vec_t &max, const vec_t &cellSize, uint32_t tableSize );
 	~HashTable();
 	
 	//! Inserts a new point in the HashTable with an optional pointer to user data
@@ -218,6 +219,12 @@ protected:
 	Vector		mHashTable;
 	vec_t		mCellSize;
 	uint32_t	mHashTableSize;
+	vec_t		mMin, mMax, mOffset;
+};
+	
+class HashTableInsertionFailedException : public ci::Exception {
+public:
+	HashTableInsertionFailedException() : ci::Exception( "Failed to insert an element. You might want to try to change the table size." ) {}
 };
 
 // TODO: Implement BSPTrees

@@ -46,138 +46,136 @@ Running [```test.cpp```](test.cpp) should output something along those lines. It
 ```
 2d Brute Force
 
-	Range search 				49.102ms		418 neighbors
-	Nearest search 				43.73ms			[   -4.055,   -4.027]
+	Range search 				3.22801ms 		1990 neighbors
+	Nearest search 				2.22701ms 		[    0.055,    0.027]
 _____________________________________________________________________________________________
 
 KdTree2
 
 	Memory Footprint 			38.147mb
-	Inserting 1000000 objects 	1502.52ms
-	Range Search 				0.344992ms 		418 neighbors
-	Range Search lambda 		0.177979ms 		418 neighbors
-	Nearest Search 				0.0180006ms 	[   -4.055,   -4.027]
-	Clearing structure 			117.568ms
+	Inserting 1000000 objects 	731.91ms
+	Range Search 				0.497997ms 		1990 neighbors
+	Range Search lambda 		0.222027ms 		1990 neighbors
+	Nearest Search 				0.00196695ms 	[    0.055,    0.027]
+	Clearing structure 			119.747ms
 _____________________________________________________________________________________________
 
 Grid2 k = 1
 
-	Memory Footprint 			16.2114mb
-	Inserting 1000000 objects 	414.334ms
-	Range Search 				0.333965ms 		418 neighbors
-	Range Search lambda 		0.0990033ms 	418 neighbors
-	Nearest Search 				0.102997ms 		[   -4.055,   -4.027]
-	Clearing structure 			81.276ms
+	Memory Footprint 			15.4923mb
+	Inserting 1000000 objects 	93.623ms
+	Range Search 				0.102997ms 		1990 neighbors
+	Range Search lambda 		0.0450015ms 	1990 neighbors
+	Nearest Search 				0.0119805ms 	[    0.055,    0.027]
+	Clearing structure 			86.762ms
 _____________________________________________________________________________________________
 
 Grid2 k = 2
 
-	Memory Footprint 			15.497mb
-	Inserting 1000000 objects 	413.715ms
-	Range Search 				0.414014ms 		418 neighbors
-	Range Search lambda 		0.265002ms 		418 neighbors
-	Nearest Search 				0.274003ms 		[   -4.055,   -4.027]
-	Clearing structure 			90.509ms
+	Memory Footprint 			15.3184mb
+	Inserting 1000000 objects 	116.088ms
+	Range Search 				0.102997ms 		1990 neighbors
+	Range Search lambda 		0.0609756ms 	1990 neighbors
+	Nearest Search 				0.00995398ms 	[    0.055,    0.027]
+	Clearing structure 			87.708ms
 _____________________________________________________________________________________________
 
 Grid2 k = 3
 
-	Memory Footprint 			15.3184mb
-	Inserting 1000000 objects 	398.919ms
-	Range Search 				0.252008ms 		418 neighbors
-	Range Search lambda 		0.262022ms 		418 neighbors
-	Nearest Search 				0.342011ms 		[   -4.055,   -4.027]
-	Clearing structure 			85.196ms
+	Memory Footprint 			15.2743mb
+	Inserting 1000000 objects 	117.888ms
+	Range Search 				0.140011ms 		1990 neighbors
+	Range Search lambda 		0.115037ms 		1990 neighbors
+	Nearest Search 				0.145972ms 		[    0.055,    0.027]
+	Clearing structure 			92.24ms
 _____________________________________________________________________________________________
 
 Grid2 k = 4
 
-	Memory Footprint 			15.2743mb
-	Inserting 1000000 objects 	433.826ms
-	Range Search 				0.512004ms 		418 neighbors
-	Range Search lambda 		0.286996ms 		418 neighbors
-	Nearest Search 				1.08701ms 		[   -4.055,   -4.027]
-	Clearing structure 			83.948ms
+	Memory Footprint 			15.2627mb
+	Inserting 1000000 objects 	120.338ms
+	Range Search 				0.141025ms 		1990 neighbors
+	Range Search lambda 		0.113964ms 		1990 neighbors
+	Nearest Search 				0.118971ms 		[    0.055,    0.027]
+	Clearing structure 			92.325ms
 _____________________________________________________________________________________________
 
 Unbounded-Grid2 k = 1
 
-	Memory Footprint 			16.2114mb
-	Inserting 1000000 objects 	7199.5ms
-	Range Search 				0.238001ms 		418 neighbors
-	Range Search lambda 		0.0879765ms		418 neighbors
-	Nearest Search 				0.0680089ms 	[   -4.055,   -4.027]
-	Clearing structure 			92.284ms
+	Memory Footprint 			15.4923mb
+	Inserting 1000000 objects 	297.285ms
+	Range Search 				0.102997ms 		1990 neighbors
+	Range Search lambda 		0.0700355ms 	1990 neighbors
+	Nearest Search 				0.0090003ms 	[    0.055,    0.027]
+	Clearing structure 			90.626ms
 _____________________________________________________________________________________________
 
 
 
 3d Brute Force
 
-	Range search 				43.762ms			4 neighbors
-	Nearest search 				47.096ms			[    4.103,    4.016,    5.801]
+	Range search 				1.97297ms 		73 neighbors
+	Nearest search 				1.90198ms 		[    0.103,    0.016,    1.801]
 _____________________________________________________________________________________________
 
 KdTree3
 
 	Memory Footprint 			38.147mb
-	Inserting 1000000 objects 	1690.55ms
-	Range Search 				0.0470281ms 		4 neighbors
-	Range Search lambda 		0.0199676ms 		4 neighbors
-	Nearest Search 				0.0140071ms 		[    4.103,    4.016,    5.801]
-	Clearing structure 			124.938ms
+	Inserting 1000000 objects 	1009.77ms
+	Range Search 				0.0450015ms 		73 neighbors
+	Range Search lambda 		0.0160336ms 		73 neighbors
+	Nearest Search 				0.00196695ms 		[    0.103,    0.016,    1.801]
+	Clearing structure 			128.187ms
 _____________________________________________________________________________________________
 
 Grid3 k = 1
 
-	Memory Footprint 			217.201mb
-	Inserting 1000000 objects 	790.416ms
-	Range Search 				0.0939965ms 		4 neighbors
-	Range Search lambda 		0.0550151ms 		4 neighbors
-	Nearest Search 				0.301957ms 			[    4.103,    4.016,    5.801]
-	Clearing structure 			572.092ms
+	Memory Footprint 			46.47mb
+	Inserting 1000000 objects 	281.196ms
+	Range Search 				0.0350475ms 		73 neighbors
+	Range Search lambda 		0.00798702ms 		73 neighbors
+	Nearest Search 				0.00202656ms 		[    0.103,    0.016,    1.801]
+	Clearing structure 			117.986ms
 _____________________________________________________________________________________________
 
 Grid3 k = 2
 
-	Memory Footprint 			47.1774mb
-	Inserting 1000000 objects 	762.119ms
-	Range Search 				0.0430346ms 		4 neighbors
-	Range Search lambda 		0.0169873ms 		4 neighbors
-	Nearest Search 				0.151992ms 			[    4.103,    4.016,    5.801]
-	Clearing structure 			162.023ms
+	Memory Footprint 			25.9244mb
+	Inserting 1000000 objects 	277.803ms
+	Range Search 				0.0240207ms 		73 neighbors
+	Range Search lambda 		0.00399351ms 		73 neighbors
+	Nearest Search 				0.00303984ms 		[    0.103,    0.016,    1.801]
+	Clearing structure 			95.844ms
 _____________________________________________________________________________________________
 
 Grid3 k = 3
 
-	Memory Footprint 			25.9244mb
-	Inserting 1000000 objects 	612.086ms
-	Range Search 				0.0349879ms 		4 neighbors
-	Range Search lambda 		0.00804663ms 		4 neighbors
-	Nearest Search 				0.126004ms 			[    4.103,    4.016,    5.801]
-	Clearing structure 			114.062ms
+	Memory Footprint 			23.2906mb
+	Inserting 1000000 objects 	102.613ms
+	Range Search 				0.0320077ms 		73 neighbors
+	Range Search lambda 		0.0100136ms 		73 neighbors
+	Nearest Search 				0.00298023ms 		[    0.103,    0.016,    1.801]
+	Clearing structure 			98.442ms
 _____________________________________________________________________________________________
 
 Grid3 k = 4
 
-	Memory Footprint 			23.2906mb
-	Inserting 1000000 objects 	488.936ms
-	Range Search 				0.0550151ms 		4 neighbors
-	Range Search lambda 		0.0270009ms 		4 neighbors
-	Nearest Search 				0.325024ms 			[    4.103,    4.016,    5.801]
-	Clearing structure 			106.216ms
+	Memory Footprint 			22.9386mb
+	Inserting 1000000 objects 	151.011ms
+	Range Search 				0.048995ms 			73 neighbors
+	Range Search lambda 		0.0529885ms 		73 neighbors
+	Nearest Search 				0.0169873ms 		[    0.103,    0.016,    1.801]
+	Clearing structure 			101.531ms
 _____________________________________________________________________________________________
 
 Unbounded-Grid3 k = 3
 
-	Memory Footprint 			25.9244mb
-	Inserting 1000000 objects 	11005.8ms
-	Range Search 				0.0190139ms 		4 neighbors
-	Range Search lambda 		0.00500679ms 		4 neighbors
-	Nearest Search 				0.0960231ms 		[    4.103,    4.016,    5.801]
-	Clearing structure 			117.241ms
+	Memory Footprint 			23.2906mb
+	Inserting 1000000 objects 	378.761ms
+	Range Search 				0.050962ms 			73 neighbors
+	Range Search lambda 		0.0370145ms 		73 neighbors
+	Nearest Search 				0.0370145ms 		[    0.103,    0.016,    1.801]
+	Clearing structure 			97.918ms
 _____________________________________________________________________________________________
-
-
 
 ```
