@@ -92,12 +92,12 @@ ________________________________________________________________________________
 
 Grid2 k = 4
 
-	Memory Footprint 			15.3184mb
-	Inserting 1000000 objects 	412.585ms
-	Range Search 				0.38898ms 		418 neighbors
-	Range Search lambda 		0.319004ms 		418 neighbors
-	Nearest Search 				0.290036ms 		[   -4.055,   -4.027]
-	Clearing structure 			96.164ms
+	Memory Footprint 			15.2743mb
+	Inserting 1000000 objects 	433.826ms
+	Range Search 				0.512004ms 		418 neighbors
+	Range Search lambda 		0.286996ms 		418 neighbors
+	Nearest Search 				1.08701ms 		[   -4.055,   -4.027]
+	Clearing structure 			83.948ms
 _____________________________________________________________________________________________
 
 Unbounded-Grid2 k = 1
@@ -160,12 +160,12 @@ ________________________________________________________________________________
 
 Grid3 k = 4
 
-	Memory Footprint 			25.9244mb
-	Inserting 1000000 objects 	571.226ms
-	Range Search 				0.0230074ms 		4 neighbors
-	Range Search lambda 		0.0100136ms 		4 neighbors
-	Nearest Search 				0.109017ms 			[    4.103,    4.016,    5.801]
-	Clearing structure 			112.836ms
+	Memory Footprint 			23.2906mb
+	Inserting 1000000 objects 	488.936ms
+	Range Search 				0.0550151ms 		4 neighbors
+	Range Search lambda 		0.0270009ms 		4 neighbors
+	Nearest Search 				0.325024ms 			[    4.103,    4.016,    5.801]
+	Clearing structure 			106.216ms
 _____________________________________________________________________________________________
 
 Unbounded-Grid3 k = 3
