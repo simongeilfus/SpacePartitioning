@@ -61,15 +61,15 @@ public:
 	class Node {
 	public:
 		//! Returns the position of the node
-		vec_t	getPosition() const { return mPosition; }
+		vec_t getPosition() const { return mPosition; }
 		//! Returns the user data pointer
-		void*	getData() const { return mData; }
+		void* getData() const { return mData; }
 		
 		Node( const vec_t &position, int axis, void *data );
 		~Node();
 	protected:
 		vec_t	mPosition;
-		int		mAxis;
+		int	mAxis;
 		Node*	mLeft;
 		Node*	mRight;
 		void*	mData;
@@ -79,11 +79,11 @@ public:
 	using NodePair = std::pair<Node*,T>;
 	
 	//! Returns a pointer to the nearest Node with its square distance to the position
-	Node*					nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
+	Node*			nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
 	std::vector<NodePair>	rangeSearch( const vec_t &position, T radius ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
-	void					rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
+	void			rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
 	
 	KdTree();
 	~KdTree();
@@ -133,14 +133,14 @@ public:
 	class Node {
 	public:
 		//! Returns the position of the node
-		vec_t	getPosition() const { return mPosition; }
+		vec_t getPosition() const { return mPosition; }
 		//! Returns the user data pointer
-		void*	getData() const { return mData; }
+		void* getData() const { return mData; }
 		
 		Node( const vec_t &position, void *data );
 	protected:
-		vec_t	mPosition;
-		void*	mData;
+		vec_t mPosition;
+		void* mData;
 		friend class Grid;
 	};
 	
@@ -148,11 +148,11 @@ public:
 	using Vector = typename std::vector<std::vector<Node*>>;
 	
 	//! Returns a pointer to the nearest Node with its square distance to the position
-	Node*					nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
+	Node*			nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
 	std::vector<NodePair>	rangeSearch( const vec_t &position, T radius ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
-	void					rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
+	void			rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
 	
 	~Grid();
 protected:
@@ -193,14 +193,14 @@ public:
 	class Node {
 	public:
 		//! Returns the position of the node
-		vec_t	getPosition() const { return mPosition; }
+		vec_t getPosition() const { return mPosition; }
 		//! Returns the user data pointer
-		void*	getData() const { return mData; }
+		void* getData() const { return mData; }
 		
 		Node( const vec_t &position, void *data );
 	protected:
-		vec_t	mPosition;
-		void*	mData;
+		vec_t mPosition;
+		void* mData;
 		friend class HashTable;
 	};
 	
@@ -208,11 +208,11 @@ public:
 	using Vector = typename std::vector<std::vector<Node*>>;
 	
 	//! Returns a pointer to the nearest Node with its square distance to the position
-	Node*					nearest( const vec_t &position, T *distanceSq = nullptr ) const;
+	Node*			nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
-	std::vector<NodePair>	nearest( const vec_t &position, T radius ) const;
+	std::vector<NodePair>	rangeSearch( const vec_t &position, T radius ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
-	void					nearest( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
+	void			rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
 };
 
 // TODO: Implement BSPTrees
@@ -228,24 +228,24 @@ public:
 };
 	
 
-typedef Structure<2, float>		Structure2;
-typedef Structure<3, float>		Structure3;
-typedef Structure<4, float>		Structure4;
+typedef Structure<2, float>	Structure2;
+typedef Structure<3, float>	Structure3;
+typedef Structure<4, float>	Structure4;
 typedef Structure<2, double>	dStructure2;
 typedef Structure<3, double>	dStructure3;
 typedef Structure<4, double>	dStructure4;
 	
-typedef KdTree<2, float>		KdTree2;
-typedef KdTree<3, float>		KdTree3;
-typedef KdTree<4, float>		KdTree4;
-typedef KdTree<2, double>		dKdTree2;
-typedef KdTree<3, double>		dKdTree3;
-typedef KdTree<4, double>		dKdTree4;
+typedef KdTree<2, float>	KdTree2;
+typedef KdTree<3, float>	KdTree3;
+typedef KdTree<4, float>	KdTree4;
+typedef KdTree<2, double>	dKdTree2;
+typedef KdTree<3, double>	dKdTree3;
+typedef KdTree<4, double>	dKdTree4;
 	
-typedef Grid<2, float>			Grid2;
-typedef Grid<3, float>			Grid3;
-typedef Grid<2, double>			dGrid2;
-typedef Grid<3, double>			dGrid3;
+typedef Grid<2, float>		Grid2;
+typedef Grid<3, float>		Grid3;
+typedef Grid<2, double>		dGrid2;
+typedef Grid<3, double>		dGrid3;
 };
 
 namespace sp = SpacePartitioning;
