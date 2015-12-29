@@ -568,15 +568,90 @@ template class Grid<3, double>;
 // http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.4.5881&rep=rep1&type=pdf
 // https://en.wikipedia.org/wiki/Locality-sensitive_hashing
 	
-uint32_t getHash( const ci::vec3 &position, const ci::vec3 &cellSize, uint32_t tableSize )
+
+template<uint8_t DIM, class T> struct HashTableTraits {};
+template<class T>
+struct HashTableTraits<2,T> {
+	static uint32_t getHash( const typename HashTable<2,T>::vec_t &position, const typename HashTable<2,T>::vec_t &cellSize, uint32_t tableSize )
+	{
+		const typename HashTable<3,T>::ivec_t largePrime( 73856093, 19349663, 83492791 );
+		typename HashTable<2,T>::ivec_t p = glm::floor( position / cellSize );
+		return ( ( p.x * largePrime.x ) ^ ( p.y * largePrime.y ) ) % tableSize;
+	}
+};
+
+template<class T>
+struct HashTableTraits<3,T> {
+	static uint32_t getHash( const typename HashTable<3,T>::vec_t &position, const typename HashTable<3,T>::vec_t &cellSize, uint32_t tableSize )
+	{
+		const typename HashTable<3,T>::ivec_t largePrime( 73856093, 19349663, 83492791 );
+		typename HashTable<3,T>::ivec_t p = glm::floor( position / cellSize );
+		return ( ( p.x * largePrime.x ) ^ ( p.y * largePrime.y ) ^ ( p.z * largePrime.z ) ) % tableSize;
+	}
+};
+	
+template<uint8_t DIM, class T>
+HashTable<DIM,T>::HashTable( const vec_t &cellSize, uint32_t tableSize )
+: mCellSize( cellSize ), mHashTableSize( tableSize )
 {
-	const int p1 = 73856093;
-	const int p2 = 19349663;
-	const int p3 = 83492791;
-	
-	ci::ivec3 p = glm::floor( position / cellSize );
-	
-	return ( ( p.x * p1 ) ^ ( p.y * p2 ) ^ ( p.z * p3 ) ) % tableSize;
+	for( size_t i = 0; i < mHashTableSize; i++ )
+		mHashTable.push_back( std::vector<Node*>() );
 }
+template<uint8_t DIM, class T>
+HashTable<DIM,T>::~HashTable()
+{
+	clear();
+}
+	
+template<uint8_t DIM, class T>
+void HashTable<DIM,T>::insert( const vec_t &position, void *data )
+{
+	uint32_t hash = HashTableTraits<DIM,T>::getHash( position, mCellSize, mHashTableSize );
+        mHashTable[hash].emplace_back( new Node( position, data ) );
+}
+template<uint8_t DIM, class T>
+void HashTable<DIM,T>::clear()
+{
+	for( auto& cell : mHashTable ) {
+		for( auto& node : cell ) {
+			if( node )
+				delete node;
+		}
+		cell.clear();
+	}
+}
+template<uint8_t DIM, class T>
+size_t HashTable<DIM,T>::size() const
+{
+	size_t size = sizeof( *this );
+	for( const auto& cell : mHashTable ) {
+		size += sizeof( cell ) + sizeof(Node) * cell.size();
+	}
+	return size;
+}
+
+template<uint8_t DIM, class T>
+typename HashTable<DIM,T>::Node* HashTable<DIM,T>::nearestNeighborSearch( const vec_t &position, T *distanceSq ) const
+{
+	
+}
+
+template<uint8_t DIM, class T>
+std::vector<typename HashTable<DIM,T>::NodePair> HashTable<DIM,T>::rangeSearch( const vec_t &position, T radius ) const
+{
+	
+}
+
+template<uint8_t DIM, class T>
+void HashTable<DIM,T>::rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const
+{
+	
+}
+	
+// explicit template instantiations
+template class HashTable<2, float>;
+template class HashTable<3, float>;
+template class HashTable<2, double>;
+template class HashTable<3, double>;
 	
 }

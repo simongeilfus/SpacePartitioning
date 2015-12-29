@@ -179,7 +179,7 @@ public:
 	using vec_t = typename Structure<DIM,T>::vec_t;
 	using ivec_t = typename Structure<DIM,int>::vec_t;
 	
-	HashTable();
+	HashTable( const vec_t &cellSize, uint32_t tableSize );
 	~HashTable();
 	
 	//! Inserts a new point in the HashTable with an optional pointer to user data
@@ -213,6 +213,11 @@ public:
 	std::vector<NodePair>	rangeSearch( const vec_t &position, T radius ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
 	void			rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
+protected:
+	
+	Vector		mHashTable;
+	vec_t		mCellSize;
+	uint32_t	mHashTableSize;
 };
 
 // TODO: Implement BSPTrees
@@ -246,6 +251,11 @@ typedef Grid<2, float>		Grid2;
 typedef Grid<3, float>		Grid3;
 typedef Grid<2, double>		dGrid2;
 typedef Grid<3, double>		dGrid3;
+	
+typedef HashTable<2, float>	HashTable2;
+typedef HashTable<3, float>	HashTable3;
+typedef HashTable<2, double>	dHashTable2;
+typedef HashTable<3, double>	dHashTable3;
 };
 
 namespace sp = SpacePartitioning;
