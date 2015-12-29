@@ -1,13 +1,10 @@
 ## SpacePartitioning
 A collection of c++11 Space Partitioning templates for Cinder
 
-- [x] KdTree
-- [x] Bin-lattice / Grid
-- [ ] HashTable
-- [ ] OctTree
-- [ ] BSPTree
+This is a work in progress; currently only ```KdTree``` and ```Bin-lattice / Grid``` are available, but ```HashTable```, ```Octree``` and ```BSPTree``` are on their way.
 
-Each classes share the same syntax for common tasks :
+**Basic Use:**  
+Each classes share the same syntax for common tasks.
 
 ```c++
 // Create a 3d KdTree (use alias for KdTree<3,float>)
