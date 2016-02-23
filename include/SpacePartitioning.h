@@ -26,6 +26,7 @@
 
 #include <vector>
 #include "cinder/Vector.h"
+#include "cinder/Exception.h"
 
 namespace SpacePartitioning {
 	
