@@ -8,8 +8,8 @@
 	license="BSD 2-clause “Simplified” License"
 	>
 	<includePath>include</includePath>
-	<header>include/Grid.h</header>
-	<header>include/HashTable.h</header>
-	<header>include/KdTree.h</header>
+	<header>include/sp/Grid.h</header>
+	<header>include/sp/HashTable.h</header>
+	<header>include/sp/KdTree.h</header>
 </block>
 </cinder>

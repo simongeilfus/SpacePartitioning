@@ -16,15 +16,10 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
+		0776B8A723B7446C87C575D1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 98B2D174A1AE412AA20780EE /* CinderApp.icns */; };
+		40D93FEB35CC40398C3B4DB6 /* MeshSamplingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A13E656C27D94FB9ABCD2212 /* MeshSamplingApp.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		19D6666E59824689B467B6F1 /* KdTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B3427308F844DF59030C4FF /* KdTree.h */; };
-		59C2F0B8D27540739AD497EF /* HashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C083C8381404E738528864E /* HashTable.h */; };
-		3EDA5C2ED65C41798D07FCC9 /* Grid.h in Headers */ = {isa = PBXBuildFile; fileRef = 3823C694924949BC9377E05F /* Grid.h */; };
-		A2C995851DF74EBC9FEEEB7C /* MeshSampling_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 13FE5965CA8C459494A90290 /* MeshSampling_Prefix.pch */; };
-		0776B8A723B7446C87C575D1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 98B2D174A1AE412AA20780EE /* CinderApp.icns */; };
-		604935E8F81A4FAAB4B3897E /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 877F5D4FA9E94AF083DE11FC /* Resources.h */; };
-		40D93FEB35CC40398C3B4DB6 /* MeshSamplingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A13E656C27D94FB9ABCD2212 /* MeshSamplingApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,18 +33,18 @@
 		00B995581B128DF400A5C623 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13FE5965CA8C459494A90290 /* MeshSampling_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = MeshSampling_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4BBC0E9C1C7E443A00401E1D /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Grid.h; path = ../../../include/sp/Grid.h; sourceTree = "<group>"; };
+		4BBC0E9D1C7E443A00401E1D /* HashTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HashTable.h; path = ../../../include/sp/HashTable.h; sourceTree = "<group>"; };
+		4BBC0E9E1C7E443A00401E1D /* KdTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KdTree.h; path = ../../../include/sp/KdTree.h; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		877F5D4FA9E94AF083DE11FC /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MeshSampling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeshSampling.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A13E656C27D94FB9ABCD2212 /* MeshSamplingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/MeshSamplingApp.cpp; sourceTree = "<group>"; name = MeshSamplingApp.cpp; };
-		877F5D4FA9E94AF083DE11FC /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		98B2D174A1AE412AA20780EE /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
-		9B62A6B8A95C46F3943CC76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		13FE5965CA8C459494A90290 /* MeshSampling_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = MeshSampling_Prefix.pch; sourceTree = "<group>"; name = MeshSampling_Prefix.pch; };
-		3823C694924949BC9377E05F /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/Grid.h; sourceTree = "<group>"; name = Grid.h; };
-		8C083C8381404E738528864E /* HashTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/HashTable.h; sourceTree = "<group>"; name = HashTable.h; };
-		3B3427308F844DF59030C4FF /* KdTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/KdTree.h; sourceTree = "<group>"; name = KdTree.h; };
+		98B2D174A1AE412AA20780EE /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		9B62A6B8A95C46F3943CC76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A13E656C27D94FB9ABCD2212 /* MeshSamplingApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = MeshSamplingApp.cpp; path = ../src/MeshSamplingApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				9822F8FA343445538FB8A7A3 /* SpacePartitioning */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +120,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		278CA3B6E287468C954E5BC7 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				4BBC0E9B1C7E443400401E1D /* sp */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* MeshSampling */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,32 +139,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = MeshSampling;
-			sourceTree = "<group>";
-		};
-		278CA3B6E287468C954E5BC7 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				3823C694924949BC9377E05F /* Grid.h */,
-				8C083C8381404E738528864E /* HashTable.h */,
-				3B3427308F844DF59030C4FF /* KdTree.h */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		9822F8FA343445538FB8A7A3 /* SpacePartitioning */ = {
-			isa = PBXGroup;
-			children = (
-				278CA3B6E287468C954E5BC7 /* include */,
-			);
-			name = SpacePartitioning;
-			sourceTree = "<group>";
-		};
-		01B97315FEAEA392516A2CEA /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-				9822F8FA343445538FB8A7A3 /* SpacePartitioning */,
-			);
-			name = Blocks;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
@@ -183,6 +168,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4BBC0E9B1C7E443400401E1D /* sp */ = {
+			isa = PBXGroup;
+			children = (
+				4BBC0E9C1C7E443A00401E1D /* Grid.h */,
+				4BBC0E9D1C7E443A00401E1D /* HashTable.h */,
+				4BBC0E9E1C7E443A00401E1D /* KdTree.h */,
+			);
+			name = sp;
+			sourceTree = "<group>";
+		};
+		9822F8FA343445538FB8A7A3 /* SpacePartitioning */ = {
+			isa = PBXGroup;
+			children = (
+				278CA3B6E287468C954E5BC7 /* include */,
+			);
+			name = SpacePartitioning;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -209,6 +212,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MeshSampling" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -255,17 +260,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MeshSampling_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = MeshSampling_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -287,12 +292,12 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MeshSampling_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = MeshSampling_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -309,7 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../../..";
+				CINDER_PATH = ../../../../..;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				ENABLE_TESTABILITY = YES;
@@ -319,10 +324,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(CINDER_PATH)/include\" ../include",
-					../../../include,
-				);
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../include";
 			};
 			name = Debug;
 		};
@@ -330,7 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../../..";
+				CINDER_PATH = ../../../../..;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -338,10 +340,7 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(CINDER_PATH)/include\" ../include",
-					../../../include,
-				);
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../include";
 			};
 			name = Release;
 		};
