@@ -6,7 +6,7 @@
 #include "cinder/Rand.h"
 #include "cinder/Timer.h"
 
-#include "Grid.h"
+#include "sp/Grid.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -39,8 +39,8 @@ void MeshSamplingApp::setup()
 	// create two grid from the size of the mesh
 	// one for the triangles and another for checking distance between samples
 	auto boundingBox = mModelMesh->calcBoundingBox();
-	auto grid = sp::Grid3( gridScale * boundingBox.getMin(), gridScale * boundingBox.getMax() );
-	auto meshGrid = sp::Grid3( gridScale * boundingBox.getMin(), gridScale * boundingBox.getMax() );
+	auto grid = sp::Grid3<int>( gridScale * boundingBox.getMin(), gridScale * boundingBox.getMax() );
+	auto meshGrid = sp::Grid3<int>( gridScale * boundingBox.getMin(), gridScale * boundingBox.getMax() );
 	
 	// start by putting each vertices of the mesh in the structure
 	// storing a reference to the triangle
@@ -80,7 +80,7 @@ void MeshSamplingApp::setup()
 		// here instead we'll get the mesh triangles around the point, spawn
 		// k random point on each triangles and choose in the k points the ones
 		// that doesn't have neighbors that are closer than the min sep distance
-		meshGrid.rangeSearch( gridScale * center, gridScale * separation * 2.0f, [&]( sp::Grid3::Node *node, float distance ) {
+		meshGrid.rangeSearch( gridScale * center, gridScale * separation * 2.0f, [&]( sp::Grid3<int>::Node *node, float distance ) {
 			vec3 a, b, c;
 			int triangleId = node->getData();
 			mModelMesh->getTriangleVertices( triangleId, &a, &b, &c );

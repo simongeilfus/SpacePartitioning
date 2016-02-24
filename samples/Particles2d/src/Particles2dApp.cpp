@@ -3,8 +3,8 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 
-#include "Grid.h"
-#include "KdTree.h"
+#include "sp/Grid.h"
+#include "sp/KdTree.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -25,8 +25,8 @@ class Particles2dApp : public App {
 	void simulate( double timestep );
 	void mouseDrag( MouseEvent event ) override;
 	
-	//using SpatialStruct = sp::KdTree2_t<Particle*>;
-	using SpatialStruct = sp::Grid2_t<Particle*>;
+	//using SpatialStruct = sp::KdTree2<Particle*>;
+	using SpatialStruct = sp::Grid2<Particle*>;
 	
 	SpatialStruct		mParticleSpatialStruct;
 	gl::BatchRef		mParticlesBatch;

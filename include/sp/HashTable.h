@@ -291,21 +291,12 @@ void HashTable<DIM,T,DataT>::rangeSearch( const vec_t &position, T radius, const
 }
 	
 //! Represents a 2D float Spatial Hash Table partitioning structure
-template<class DataT> using HashTable2_t	= HashTable<2,float,DataT>;
+template<class DataT> using HashTable2 = HashTable<2,float,DataT>;
 //! Represents a 3D float Spatial Hash Table partitioning structure
-template<class DataT> using HashTable3_t	= HashTable<3,float,DataT>;
+template<class DataT> using HashTable3 = HashTable<3,float,DataT>;
 //! Represents a 2D double Spatial Hash Table partitioning structure
-template<class DataT> using dHashTable2_t	= HashTable<2,double,DataT>;
+template<class DataT> using dHashTable2 = HashTable<2,double,DataT>;
 //! Represents a 3D double Spatial Hash Table partitioning structure
-template<class DataT> using dHashTable3_t	= HashTable<3,double,DataT>;
-	
-//! Represents a 2D float Spatial Hash Table partitioning structure with uint32_t data
-using HashTable2	= HashTable<2,float,uint32_t>;
-//! Represents a 3D float Spatial Hash Table partitioning structure with uint32_t data
-using HashTable3	= HashTable<3,float,uint32_t>;
-//! Represents a 2D double Spatial Hash Table partitioning structure with uint32_t data
-using dHashTable2	= HashTable<2,double,uint32_t>;
-//! Represents a 3D double Spatial Hash Table partitioning structure with uint32_t data
-using dHashTable3	= HashTable<3,double,uint32_t>;
+template<class DataT> using dHashTable3 = HashTable<3,double,DataT>;
 	
 };

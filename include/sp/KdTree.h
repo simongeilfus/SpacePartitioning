@@ -343,22 +343,13 @@ void KdTree<DIM,T,DataT>::rangeSearchImpl( Node *node, const vec_t &position, T 
 }
 	
 //! Represents a 2D float K-D Tree space partitioning structure
-template<class DataT> using KdTree2_t	= KdTree<2,float,DataT>;
+template<class DataT> using KdTree2 = KdTree<2,float,DataT>;
 //! Represents a 3D float K-D Tree space partitioning structure
-template<class DataT> using KdTree3_t	= KdTree<3,float,DataT>;
+template<class DataT> using KdTree3 = KdTree<3,float,DataT>;
 //! Represents a 2D double K-D Tree space partitioning structure
-template<class DataT> using dKdTree2_t	= KdTree<2,double,DataT>;
+template<class DataT> using dKdTree2 = KdTree<2,double,DataT>;
 //! Represents a 3D double K-D Tree space partitioning structure
-template<class DataT> using dKdTree3_t	= KdTree<3,double,DataT>;
-	
-//! Represents a 2D float K-D Tree space partitioning structure with uint32_t data
-using KdTree2	= KdTree<2,float,uint32_t>;
-//! Represents a 3D float K-D Tree space partitioning structure with uint32_t data
-using KdTree3	= KdTree<3,float,uint32_t>;
-//! Represents a 2D double K-D Tree space partitioning structure with uint32_t data
-using dKdTree2	= KdTree<2,double,uint32_t>;
-//! Represents a 3D double K-D Tree space partitioning structure with uint32_t data
-using dKdTree3	= KdTree<3,double,uint32_t>;
+template<class DataT> using dKdTree3 = KdTree<3,double,DataT>;
 	
 };
 

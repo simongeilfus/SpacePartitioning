@@ -368,24 +368,15 @@ void Grid<DIM,T,DataT>::resize( uint32_t k )
 		insert( node );
 	}
 }
-
-//! Represents a 2D float Grid / Bin-lattice space partitioning structure
-template<class DataT> using Grid2_t		= Grid<2,float,DataT>;
-//! Represents a 3D float Grid / Bin-lattice space partitioning structure
-template<class DataT> using Grid3_t		= Grid<3,float,DataT>;
-//! Represents a 2D double Grid / Bin-lattice space partitioning structure
-template<class DataT> using dGrid2_t	= Grid<2,double,DataT>;
-//! Represents a 3D double Grid / Bin-lattice space partitioning structure
-template<class DataT> using dGrid3_t	= Grid<3,double,DataT>;
 	
-//! Represents a 2D float Grid / Bin-lattice space partitioning structure with uint32_t data
-using Grid2		= Grid<2,float,uint32_t>;
-//! Represents a 3D float Grid / Bin-lattice space partitioning structure with uint32_t data
-using Grid3		= Grid<3,float,uint32_t>;
-//! Represents a 2D double Grid / Bin-lattice space partitioning structure with uint32_t data
-using dGrid2	= Grid<2,double,uint32_t>;
-//! Represents a 3D double Grid / Bin-lattice space partitioning structure with uint32_t data
-using dGrid3	= Grid<3,double,uint32_t>;
+//! Represents a 2D float Grid / Bin-lattice space partitioning structure
+template<class DataT> using Grid2 = Grid<2,float,DataT>;
+//! Represents a 3D float Grid / Bin-lattice space partitioning structure
+template<class DataT> using Grid3 = Grid<3,float,DataT>;
+//! Represents a 2D double Grid / Bin-lattice space partitioning structure
+template<class DataT> using dGrid2 = Grid<2,double,DataT>;
+//! Represents a 3D double Grid / Bin-lattice space partitioning structure
+template<class DataT> using dGrid3 = Grid<3,double,DataT>;
 	
 };
 
