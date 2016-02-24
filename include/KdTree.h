@@ -41,7 +41,7 @@ public:
 	void insert( const vec_t &position, const DataT &data = DataT() );
 	//! Removes all the nodes from the structure
 	void clear();
-	//! Returns the size of the KdTree in terms of bytes
+	//! Returns the size of the KdTree
 	size_t size() const;
 	
 	//! Represents a single element of the KdTree
@@ -211,7 +211,7 @@ size_t KdTree<DIM,T,DataT>::sizeImpl( Node *node ) const
 {
 	size_t size = 0;
 	if( node ) {
-		size += sizeof( *node );
+		size++;
 		if( node->mLeft )
 			size += sizeImpl( node->mLeft );
 		if( node->mRight )
@@ -223,7 +223,7 @@ size_t KdTree<DIM,T,DataT>::sizeImpl( Node *node ) const
 template<uint8_t DIM, class T, class DataT>
 size_t KdTree<DIM,T,DataT>::size() const
 {
-	return sizeof( *this ) + sizeImpl( mRoot );
+	return sizeImpl( mRoot );
 }
 	
 template<uint8_t DIM, class T, class DataT>

@@ -47,7 +47,7 @@ public:
 	void insert( const vec_t &position, const DataT &data = DataT() );
 	//! Removes all the nodes from the Grid structure
 	void clear();
-	//! Returns the size of the Grid in terms of bytes
+	//! Returns the size of the Grid
 	size_t size() const;
 	
 	//! Represents a single element of the Grid
@@ -274,9 +274,9 @@ void Grid<DIM,T,DataT>::clear()
 template<uint8_t DIM, class T, class DataT>
 size_t Grid<DIM,T,DataT>::size() const
 {
-	size_t size = sizeof( *this );
+	size_t size = 0;
 	for( const auto& cell : mGrid ) {
-		size += sizeof( cell ) + sizeof(Node) * cell.size();
+		size += cell.size();
 	}
 	return size;
 }
