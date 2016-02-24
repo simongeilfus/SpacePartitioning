@@ -18,7 +18,15 @@
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+<<<<<<< HEAD
 		CBF3E7CAC91D4CA397C356E4 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = FE1D615061294E958BE39338 /* CinderApp.icns */; };
+=======
+		2C4EDA9C764C45F4AC6C300C /* SpacePartitioning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7479341DBC614808AA57955B /* SpacePartitioning.cpp */; };
+		95F965CC63BF4557BA6485BF /* SpacePartitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = EA9ABD3CD6424E5E8D983DB6 /* SpacePartitioning.h */; };
+		0BEC401F5C5E4CFDBFF5DCBA /* Particles2d_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 5A27EC2F0AB741228F7C2364 /* Particles2d_Prefix.pch */; };
+		CBF3E7CAC91D4CA397C356E4 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = FE1D615061294E958BE39338 /* CinderApp.icns */; };
+		3C111A3E3980485481D9F420 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = E2AAE2D44F824F13B6AB5199 /* Resources.h */; };
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 		F0C2D03BDAE14EA0A0428E23 /* Particles2dApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 979DA2FF4E36427482F14C61 /* Particles2dApp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +41,7 @@
 		00B995581B128DF400A5C623 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+<<<<<<< HEAD
 		1749CBF2734E443B9D179358 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -47,6 +56,19 @@
 		979DA2FF4E36427482F14C61 /* Particles2dApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Particles2dApp.cpp; path = ../src/Particles2dApp.cpp; sourceTree = "<group>"; };
 		E2AAE2D44F824F13B6AB5199 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		FE1D615061294E958BE39338 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+=======
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		8D1107320486CEB800E47090 /* Particles2d.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particles2d.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		979DA2FF4E36427482F14C61 /* Particles2dApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/Particles2dApp.cpp; sourceTree = "<group>"; name = Particles2dApp.cpp; };
+		E2AAE2D44F824F13B6AB5199 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
+		FE1D615061294E958BE39338 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
+		1749CBF2734E443B9D179358 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
+		5A27EC2F0AB741228F7C2364 /* Particles2d_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Particles2d_Prefix.pch; sourceTree = "<group>"; name = Particles2d_Prefix.pch; };
+		EA9ABD3CD6424E5E8D983DB6 /* SpacePartitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/SpacePartitioning.h; sourceTree = "<group>"; name = SpacePartitioning.h; };
+		7479341DBC614808AA57955B /* SpacePartitioning.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/SpacePartitioning.cpp; sourceTree = "<group>"; name = SpacePartitioning.cpp; };
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +93,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< HEAD
 		01B97315FEAEA392516A2CEA /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +102,8 @@
 			name = Blocks;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +160,42 @@
 			name = Particles2d;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+=======
+		BAFA172BF80049F38A92D32E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				EA9ABD3CD6424E5E8D983DB6 /* SpacePartitioning.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		B74A9E2FB1994CA68FCE9620 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				7479341DBC614808AA57955B /* SpacePartitioning.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		7F166FECBDCA41BA96BD675F /* SpacePartitioning */ = {
+			isa = PBXGroup;
+			children = (
+				BAFA172BF80049F38A92D32E /* include */,
+				B74A9E2FB1994CA68FCE9620 /* src */,
+			);
+			name = SpacePartitioning;
+			sourceTree = "<group>";
+		};
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				7F166FECBDCA41BA96BD675F /* SpacePartitioning */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +223,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		7F166FECBDCA41BA96BD675F /* SpacePartitioning */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +244,8 @@
 			name = include;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,8 +272,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+<<<<<<< HEAD
 			attributes = {
 			};
+=======
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Particles2d" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -246,6 +313,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0C2D03BDAE14EA0A0428E23 /* Particles2dApp.cpp in Sources */,
+<<<<<<< HEAD
+=======
+				2C4EDA9C764C45F4AC6C300C /* SpacePartitioning.cpp in Sources */,
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+<<<<<<< HEAD
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -263,10 +335,22 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Particles2d_Prefix.pch;
+=======
+				DEAD_CODE_STRIPPING = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+<<<<<<< HEAD
+=======
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Particles2d_Prefix.pch;
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -288,12 +372,20 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
+<<<<<<< HEAD
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Particles2d_Prefix.pch;
+=======
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
 					"$(inherited)",
 				);
+<<<<<<< HEAD
+=======
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Particles2d_Prefix.pch;
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -310,7 +402,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+<<<<<<< HEAD
 				CINDER_PATH = ../../../../..;
+=======
+				CINDER_PATH = "../../../../..";
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				ENABLE_TESTABILITY = YES;
@@ -320,7 +416,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+<<<<<<< HEAD
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../include";
+=======
+				USER_HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\" ../include",
+					../../../include,
+				);
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 			};
 			name = Debug;
 		};
@@ -328,7 +431,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+<<<<<<< HEAD
 				CINDER_PATH = ../../../../..;
+=======
+				CINDER_PATH = "../../../../..";
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -336,7 +443,14 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
+<<<<<<< HEAD
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../include";
+=======
+				USER_HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\" ../include",
+					../../../include,
+				);
+>>>>>>> e80658e1dbb898ffb1e2de36b7f4a1df878af1da
 			};
 			name = Release;
 		};
