@@ -1,5 +1,5 @@
 ## SpacePartitioning
-A collection of c++11 Space Partitioning templates for Cinder
+A collection of c++11 Space Partitioning header-only templates for Cinder
 
 This is a work in progress; currently only ```KdTree``` and ```Bin-lattice / Grid``` are available, but ```HashTable```, ```Octree``` and ```BSPTree``` are on their way.
 
