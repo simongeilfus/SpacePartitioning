@@ -4,17 +4,30 @@
 *.o
 *.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+# Mac OS X cruft
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.user
+*.xcworkspace/
+xcuserdata/
+.DS_Store
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+build/
 
-# Fortran module files
-*.mod
+# Windows cruft
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+Debug/
+Release/
+ipch/
+
+# doxygen generated files
+docs/html
+docs/doxygen/cinder.tag
+
 
 # Compiled Static libraries
 *.lai
