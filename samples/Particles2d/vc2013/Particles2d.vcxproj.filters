@@ -13,16 +13,13 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Blocks">
-      <UniqueIdentifier>{4D40D137-45DF-4470-83A7-C81C9D78EEA2}</UniqueIdentifier>
+      <UniqueIdentifier>{9FE9C69F-78FA-4130-A69F-CD069B763C04}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\SpacePartitioning">
-      <UniqueIdentifier>{414C9A31-532B-4B01-94A9-7FF63E7BB0DF}</UniqueIdentifier>
+      <UniqueIdentifier>{71CFA984-BEFE-4212-B4C2-63F02E494462}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\SpacePartitioning\include">
-      <UniqueIdentifier>{99A7FFB2-2ADE-4806-91F3-07661089BD8C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Blocks\SpacePartitioning\src">
-      <UniqueIdentifier>{00590BD2-3620-4AB2-9080-0138F7AE86A4}</UniqueIdentifier>
+      <UniqueIdentifier>{020071A7-71BD-4993-AF4C-2782B9B05526}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,12 +32,15 @@
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\SpacePartitioning.h">
+    <ClInclude Include="..\..\..\include\Grid.h">
       <Filter>Blocks\SpacePartitioning\include</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\..\src\SpacePartitioning.cpp">
-      <Filter>Blocks\SpacePartitioning\src</Filter>
-    </ClCompile>
+    <ClInclude Include="..\..\..\include\HashTable.h">
+      <Filter>Blocks\SpacePartitioning\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\KdTree.h">
+      <Filter>Blocks\SpacePartitioning\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">

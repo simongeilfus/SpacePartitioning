@@ -10,7 +10,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{79476CE7-53D2-479B-86ED-9867B7E445B5}</ProjectGuid>
+    <ProjectGuid>{E751EDFC-1005-437B-BBC4-09AD9D6613BC}</ProjectGuid>
     <RootNamespace>Particles2d</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
@@ -109,11 +109,12 @@
   <ItemGroup />
   <ItemGroup>
     <ClCompile Include="..\src\Particles2dApp.cpp" />
-    <ClCompile Include="..\..\..\src\SpacePartitioning.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h" />
-    <ClInclude Include="..\..\..\include\SpacePartitioning.h" />
+    <ClInclude Include="..\..\..\include\Grid.h" />
+    <ClInclude Include="..\..\..\include\HashTable.h" />
+    <ClInclude Include="..\..\..\include\KdTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

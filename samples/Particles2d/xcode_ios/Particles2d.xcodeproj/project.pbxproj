@@ -33,14 +33,15 @@
 		C7FB19D6124BC0D70045AFD2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FB19D5124BC0D70045AFD2 /* AudioToolbox.framework */; };
 		00A66A361965AC8800B17EB3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A66A351965AC8800B17EB3 /* Accelerate.framework */; };
 		00748058165D41390024B57A /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 00748057165D41390024B57A /* assets */; };
-		CF17EE1462CC461CAC9F4DAF /* SpacePartitioning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD213E9FCAEA4668B14397EF /* SpacePartitioning.cpp */; };
-		7123260DFD194E8E934177FC /* SpacePartitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = A36F2904A1D246C2AEB47759 /* SpacePartitioning.h */; };
-		05D0014FF77840B880787D31 /* Particles2d_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 44AEE8E6AFE941338E8AA6C9 /* Particles2d_Prefix.pch */; };
-		D5F60A56FACF4A08930201A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBC90C29213C4E3D8347FF5F /* LaunchScreen.xib */; };
-		907B53E66B4E44A0A4DD149B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AB2A1F97102465EBBF0FF14 /* Images.xcassets */; };
-		50FA7FAD36034DDD8281A0A1 /* CinderApp_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 3410562AC3D24359A32CA69A /* CinderApp_ios.png */; };
-		15D141DDB8FE4D489A096A75 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC011E457504905BB614A27 /* Resources.h */; };
-		A169760EC6D9435CBE47236D /* Particles2dApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A38E73C3ECD7497C947C9511 /* Particles2dApp.cpp */; };
+		8E37421CB4CE4285977A3BDE /* KdTree.h in Headers */ = {isa = PBXBuildFile; fileRef = FD52BBC9BA404D5D8D1359F6 /* KdTree.h */; };
+		17567F29EA23411292731419 /* HashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = B73B4B278DD04208B577076F /* HashTable.h */; };
+		953DE4404E54484EB8DD0187 /* Grid.h in Headers */ = {isa = PBXBuildFile; fileRef = 57688AAF025148F792D99277 /* Grid.h */; };
+		B6D837ABDA194AA089F2EFF3 /* Particles2d_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 64CEE75BBBD94C4699D2AE70 /* Particles2d_Prefix.pch */; };
+		AFCA8DF8544644CCA7F55D96 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDBBBE8BCAB49EA8C3BCE3F /* LaunchScreen.xib */; };
+		F1454136C08F4C8B832CE2F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2191D2FC3C344E57AB88732F /* Images.xcassets */; };
+		09580E410C3C42A4AFE54009 /* CinderApp_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 1184D9A1AFE248238FF00CB0 /* CinderApp_ios.png */; };
+		F1106DD31A914EFE8E25EE18 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = A249DADC0B3346D0A359F1CF /* Resources.h */; };
+		539E858666494639A6E9B213 /* Particles2dApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE1174FA1CE44B18B4036AA0 /* Particles2dApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,15 +60,16 @@
 		C7FB19D5124BC0D70045AFD2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		00A66A351965AC8800B17EB3 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		00748057165D41390024B57A /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../assets; sourceTree = "<group>"; };
-		A38E73C3ECD7497C947C9511 /* Particles2dApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/Particles2dApp.cpp; sourceTree = "<group>"; name = Particles2dApp.cpp; };
-		1EC011E457504905BB614A27 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		3410562AC3D24359A32CA69A /* CinderApp_ios.png */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../resources/CinderApp_ios.png; sourceTree = "<group>"; name = CinderApp_ios.png; };
-		1AB2A1F97102465EBBF0FF14 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Images.xcassets; sourceTree = "<group>"; name = Images.xcassets; };
-		EBC90C29213C4E3D8347FF5F /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = LaunchScreen.xib; sourceTree = "<group>"; name = LaunchScreen.xib; };
-		B216401551354DAF855C893E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		44AEE8E6AFE941338E8AA6C9 /* Particles2d_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Particles2d_Prefix.pch; sourceTree = "<group>"; name = Particles2d_Prefix.pch; };
-		A36F2904A1D246C2AEB47759 /* SpacePartitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/SpacePartitioning.h; sourceTree = "<group>"; name = SpacePartitioning.h; };
-		AD213E9FCAEA4668B14397EF /* SpacePartitioning.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/SpacePartitioning.cpp; sourceTree = "<group>"; name = SpacePartitioning.cpp; };
+		BE1174FA1CE44B18B4036AA0 /* Particles2dApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/Particles2dApp.cpp; sourceTree = "<group>"; name = Particles2dApp.cpp; };
+		A249DADC0B3346D0A359F1CF /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
+		1184D9A1AFE248238FF00CB0 /* CinderApp_ios.png */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ../resources/CinderApp_ios.png; sourceTree = "<group>"; name = CinderApp_ios.png; };
+		2191D2FC3C344E57AB88732F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Images.xcassets; sourceTree = "<group>"; name = Images.xcassets; };
+		4DDBBBE8BCAB49EA8C3BCE3F /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = LaunchScreen.xib; sourceTree = "<group>"; name = LaunchScreen.xib; };
+		59745A4B2528489E98367CA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
+		64CEE75BBBD94C4699D2AE70 /* Particles2d_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Particles2d_Prefix.pch; sourceTree = "<group>"; name = Particles2d_Prefix.pch; };
+		57688AAF025148F792D99277 /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/Grid.h; sourceTree = "<group>"; name = Grid.h; };
+		B73B4B278DD04208B577076F /* HashTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/HashTable.h; sourceTree = "<group>"; name = HashTable.h; };
+		FD52BBC9BA404D5D8D1359F6 /* KdTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/KdTree.h; sourceTree = "<group>"; name = KdTree.h; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,27 +136,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6D1A326D6A37439AB681F1A1 /* include */ = {
+		BDEA2F96308B49929ECF28E8 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				A36F2904A1D246C2AEB47759 /* SpacePartitioning.h */,
+				57688AAF025148F792D99277 /* Grid.h */,
+				B73B4B278DD04208B577076F /* HashTable.h */,
+				FD52BBC9BA404D5D8D1359F6 /* KdTree.h */,
 			);
 			name = include;
 			sourceTree = "<group>";
 		};
-		5564A707EB254B2FA72839D5 /* src */ = {
+		5B6BBC6C62B140A7A42E5F08 /* SpacePartitioning */ = {
 			isa = PBXGroup;
 			children = (
-				AD213E9FCAEA4668B14397EF /* SpacePartitioning.cpp */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		7F66267FAE3C4656BB62A9E4 /* SpacePartitioning */ = {
-			isa = PBXGroup;
-			children = (
-				6D1A326D6A37439AB681F1A1 /* include */,
-				5564A707EB254B2FA72839D5 /* src */,
+				BDEA2F96308B49929ECF28E8 /* include */,
 			);
 			name = SpacePartitioning;
 			sourceTree = "<group>";
@@ -162,7 +157,7 @@
 		99692BD914FF149000DFFFFF /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				7F66267FAE3C4656BB62A9E4 /* SpacePartitioning */,
+				5B6BBC6C62B140A7A42E5F08 /* SpacePartitioning */,
 			);
 			name = Blocks;
 			sourceTree = "<group>";
@@ -170,8 +165,8 @@
 		99692BD914FF149000D0A05F /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				1EC011E457504905BB614A27 /* Resources.h */,
-				44AEE8E6AFE941338E8AA6C9 /* Particles2d_Prefix.pch */,
+				A249DADC0B3346D0A359F1CF /* Resources.h */,
+				64CEE75BBBD94C4699D2AE70 /* Particles2d_Prefix.pch */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -179,7 +174,7 @@
 		00692BD914FF149000D0A05E /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				A38E73C3ECD7497C947C9511 /* Particles2dApp.cpp */,
+				BE1174FA1CE44B18B4036AA0 /* Particles2dApp.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -188,10 +183,10 @@
 			isa = PBXGroup;
 			children = (
 				00748057165D41390024B57A /* assets */,
-				3410562AC3D24359A32CA69A /* CinderApp_ios.png */,
-				1AB2A1F97102465EBBF0FF14 /* Images.xcassets */,
-				EBC90C29213C4E3D8347FF5F /* LaunchScreen.xib */,
-				B216401551354DAF855C893E /* Info.plist */,
+				1184D9A1AFE248238FF00CB0 /* CinderApp_ios.png */,
+				2191D2FC3C344E57AB88732F /* Images.xcassets */,
+				4DDBBBE8BCAB49EA8C3BCE3F /* LaunchScreen.xib */,
+				59745A4B2528489E98367CA2 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -244,9 +239,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				00748058165D41390024B57A /* assets in Resources */,
-				50FA7FAD36034DDD8281A0A1 /* CinderApp_ios.png in Resources */,
-				907B53E66B4E44A0A4DD149B /* Images.xcassets in Resources */,
-				D5F60A56FACF4A08930201A1 /* LaunchScreen.xib in Resources */,
+				09580E410C3C42A4AFE54009 /* CinderApp_ios.png in Resources */,
+				F1454136C08F4C8B832CE2F0 /* Images.xcassets in Resources */,
+				AFCA8DF8544644CCA7F55D96 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,8 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A169760EC6D9435CBE47236D /* Particles2dApp.cpp in Sources */,
-				CF17EE1462CC461CAC9F4DAF /* SpacePartitioning.cpp in Sources */,
+				539E858666494639A6E9B213 /* Particles2dApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
