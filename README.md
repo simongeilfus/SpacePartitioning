@@ -7,14 +7,19 @@ This is a work in progress; currently only ```KdTree``` and ```Bin-lattice / Gri
 Each classes share the same syntax for common tasks.
 
 ```c++
-// Create a 3d KdTree (use alias for KdTree<3,float>)
+// Create a 3d KdTree
 sp::KdTree3 kdTree; 
+
+// Create a custom 2d KdTree of Nodes
+sp::KdTree2_t<Node*> nodeKdTree; 
+
+// Create a custom 4d KdTree
+sp::KdTree<4,float,Node*> node4dKdTree; 
 
 // Insert elements
 for( auto node : mNodes ) {
-	const vec3& pos = node->getPosition();
-	void* userData 	= static_cast<void*>( node );
-	kdTree.insert( pos, userData );
+	auto userData = node->getId();
+	kdTree.insert( node->getPosition(), userData );
 }
 
 // Nearest neighbor search
@@ -34,7 +39,7 @@ for( auto neighbor : neighbors ) {
 
 // Visitor Range search
 auto neighbors = kdTree.rangeSearch( vec3( 0.0f ), 35.0f, 
-	[]( KdTree2::Node* node, float distSq ) {
+	[]( KdTree3::Node* node, float distSq ) {
 		// ...
 	} );
 
@@ -46,12 +51,23 @@ A KdTree is a versatile space partitioning structure. They work in most situatio
 
 ```KdTrees``` come in the following flavors :
 ```c++
-typedef KdTree<2, float>	KdTree2;
-typedef KdTree<3, float>	KdTree3;
-typedef KdTree<4, float>	KdTree4;
-typedef KdTree<2, double>	dKdTree2;
-typedef KdTree<3, double>	dKdTree3;
-typedef KdTree<4, double>	dKdTree4;
+//! Represents a 2D float K-D Tree space partitioning structure
+template<class DataT> using KdTree2_t	= KdTree<2,float,DataT>;
+//! Represents a 3D float K-D Tree space partitioning structure
+template<class DataT> using KdTree3_t	= KdTree<3,float,DataT>;
+//! Represents a 2D double K-D Tree space partitioning structure
+template<class DataT> using dKdTree2_t	= KdTree<2,double,DataT>;
+//! Represents a 3D double K-D Tree space partitioning structure
+template<class DataT> using dKdTree3_t	= KdTree<3,double,DataT>;
+	
+//! Represents a 2D float K-D Tree space partitioning structure with uint32_t data
+using KdTree2	= KdTree<2,float,uint32_t>;
+//! Represents a 3D float K-D Tree space partitioning structure with uint32_t data
+using KdTree3	= KdTree<3,float,uint32_t>;
+//! Represents a 2D double K-D Tree space partitioning structure with uint32_t data
+using dKdTree2	= KdTree<2,double,uint32_t>;
+//! Represents a 3D double K-D Tree space partitioning structure with uint32_t data
+using dKdTree3	= KdTree<3,double,uint32_t>;
 ```
 
 **Grid:**
@@ -60,10 +76,24 @@ A Bin-Lattice spatial subdivision structure or uniform grid is easy and particul
 
 ```Grids``` come in the following flavors :
 ```c++
-typedef Grid<2, float>		Grid2;
-typedef Grid<3, float>		Grid3;
-typedef Grid<2, double>		dGrid2;
-typedef Grid<3, double>		dGrid3;
+
+//! Represents a 2D float Grid / Bin-lattice space partitioning structure
+template<class DataT> using Grid2_t		= Grid<2,float,DataT>;
+//! Represents a 3D float Grid / Bin-lattice space partitioning structure
+template<class DataT> using Grid3_t		= Grid<3,float,DataT>;
+//! Represents a 2D double Grid / Bin-lattice space partitioning structure
+template<class DataT> using dGrid2_t	= Grid<2,double,DataT>;
+//! Represents a 3D double Grid / Bin-lattice space partitioning structure
+template<class DataT> using dGrid3_t	= Grid<3,double,DataT>;
+	
+//! Represents a 2D float Grid / Bin-lattice space partitioning structure with uint32_t data
+using Grid2		= Grid<2,float,uint32_t>;
+//! Represents a 3D float Grid / Bin-lattice space partitioning structure with uint32_t data
+using Grid3		= Grid<3,float,uint32_t>;
+//! Represents a 2D double Grid / Bin-lattice space partitioning structure with uint32_t data
+using dGrid2	= Grid<2,double,uint32_t>;
+//! Represents a 3D double Grid / Bin-lattice space partitioning structure with uint32_t data
+using dGrid3	= Grid<3,double,uint32_t>;
 ```
 
 **Test suite:**  
