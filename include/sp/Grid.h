@@ -388,8 +388,6 @@ void Grid<DIM,T,DataT>::resize( const vec_t &min, const vec_t &max )
 {
 	mMin = min;
 	mMax = max;
-	mGridMin = GridTraits<DIM,T,DataT>::toGridPosition( min, mOffset, mK );
-	mGridMax = GridTraits<DIM,T,DataT>::toGridPosition( max, mOffset, mK );
 	resize( mK );
 }
 template<uint8_t DIM, class T, class DataT>
@@ -397,8 +395,6 @@ void Grid<DIM,T,DataT>::resize( const vec_t &min, const vec_t &max, uint32_t k )
 {
 	mMin = min;
 	mMax = max;
-	mGridMin = GridTraits<DIM,T,DataT>::toGridPosition( min, mOffset, mK );
-	mGridMax = GridTraits<DIM,T,DataT>::toGridPosition( max, mOffset, mK );
 	resize( k );
 }
 template<uint8_t DIM, class T, class DataT>
@@ -414,7 +410,9 @@ void Grid<DIM,T,DataT>::resize( uint32_t k )
 	// Update grid settings
 	mK          = k;
 	mCellSize   = 1 << k;
-	mOffset     = -mMin;
+	mOffset     = glm::ceil( -mMin );
+	mGridMin	= GridTraits<DIM,T,DataT>::toGridPosition( mMin, mOffset, mK );
+	mGridMax	= GridTraits<DIM,T,DataT>::toGridPosition( mMax, mOffset, mK );
 	mNumCells   = glm::ceil( ( ( mMax - mMin ) + vec_t( 1 ) ) / static_cast<T>( mCellSize ) );
 	mBins.resize( GridTraits<DIM,T,DataT>::gridSize( mNumCells ) );
 	
