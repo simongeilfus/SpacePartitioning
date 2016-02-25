@@ -25,11 +25,15 @@
 #pragma once
 
 #include <vector>
+#include "cinder/AxisAlignedBox.h"
 #include "cinder/Exception.h"
+#include "cinder/Rect.h"
 #include "cinder/Utilities.h"
 #include "cinder/Vector.h"
 
 namespace SpacePartitioning {
+	
+template<uint8_t DIM, class T, class DataT> struct GridTraits {};
 
 //! Represents a Grid / Bin-lattice space partitioning structure
 template<uint8_t DIM, class T, class DataT>
@@ -66,14 +70,40 @@ public:
 	};
 	
 	using NodePair = std::pair<Node*,T>;
-	using Vector = typename std::vector<std::vector<Node*>>;
+	using Vector = std::vector<std::vector<Node*>>;
 	
 	//! Returns a pointer to the nearest Node with its square distance to the position
-	Node*			nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
+	Node* nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
-	std::vector<NodePair>	rangeSearch( const vec_t &position, T radius ) const;
+	std::vector<NodePair> rangeSearch( const vec_t &position, T radius ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
-	void			rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
+	void rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
+	
+	using bounds_t = typename GridTraits<DIM,T,DataT>::Bounds;
+	
+	//! Returns the number of bins of the grid
+	size_t getNumBins() const { return mBins.size(); }
+	//! Returns the number of bins of the grid in each dimension
+	vec_t getNumCells() const { return mNumCells; }
+	//! Returns the ith bin as a std::vector of Node*
+	const std::vector<Node*> getBin( size_t i ) const { return mBins[i]; }
+	//! Returns the bin at a position as a std::vector of Node*
+	const std::vector<Node*> getBinAt( const vec_t &position ) const;
+	//! Returns the bin index at a position
+	size_t getBinIndexAt( const vec_t &position ) const;
+	//! Returns the center of the ith bin
+	vec_t getBinCenter( size_t i ) const;
+	//! Returns the bounds of the ith bin
+	bounds_t getBinBounds( size_t i ) const;
+	//! Returns the size of a bin
+	vec_t getBinsSize() const { return vec_t( mCellSize ); }
+	
+	//! Returns the minimum of the Grid
+	vec_t getMin() const { return mMin; }
+	//! Returns the maximum of the Grid
+	vec_t getMax() const { return mMax; }
+	//! Returns the minimum and the maximum of the Grid
+	bounds_t getBounds() const { return bounds_t( mMin, mMax ); }
 	
 	~Grid();
 protected:
@@ -82,11 +112,12 @@ protected:
 	void resize( const vec_t &min, const vec_t &max, uint32_t k );
 	void insert( Node *node );
 	
-	Vector		mGrid;
+	Vector		mBins;
 	ivec_t		mNumCells;
 	vec_t		mMin, mMax, mOffset;
 	uint32_t	mK, mCellSize;
 };
+
 	
 class GridOutOfBoundsException : public ci::Exception {
 public:
@@ -98,12 +129,20 @@ public:
 // http://www.red3d.com/cwr/papers/2000/pip.pdf
 // https://en.wikipedia.org/wiki/Regular_grid
 	
-template<uint8_t DIM, class T, class DataT> struct GridTraits {};
 template<class T, class DataT>
 struct GridTraits<2,T,DataT> {
 	static typename Grid<2,T,DataT>::ivec_t toGridPosition( const typename Grid<2,T,DataT>::vec_t &position, const typename Grid<2,T,DataT>::vec_t &offset, uint32_t k ) {
 		return typename Grid<2,T,DataT>::ivec_t( static_cast<uint32_t>( position.x + offset.x ) >> k,
 										  static_cast<uint32_t>( position.y + offset.y ) >> k );
+	}
+	static typename Grid<2,T,DataT>::ivec_t toGridPosition( uint32_t index, const typename Grid<2,T,DataT>::ivec_t &numCells )
+	{
+		return typename Grid<2,T,DataT>::ivec_t( index % numCells.x, ( index / numCells.x ) % numCells.y );
+	}
+	static typename Grid<2,T,DataT>::vec_t toPosition( const typename Grid<2,T,DataT>::ivec_t &gridPosition, const typename Grid<2,T,DataT>::vec_t &offset, uint32_t k )
+	{
+		return typename Grid<2,T,DataT>::vec_t( static_cast<T>( gridPosition.x << k ) - offset.x,
+											   static_cast<T>( gridPosition.y << k ) - offset.y );
 	}
 	static uint32_t toIndex( const typename Grid<2,T,DataT>::ivec_t &gridPos, const typename Grid<2,T,DataT>::ivec_t &numCells ) {
 		return gridPos.x + numCells.x * gridPos.y;
@@ -150,6 +189,7 @@ struct GridTraits<2,T,DataT> {
 			}
 		}
 	}
+	typedef ci::RectT<T> Bounds;
 };
 template<class T, class DataT>
 struct GridTraits<3,T,DataT> {
@@ -157,6 +197,16 @@ struct GridTraits<3,T,DataT> {
 		return typename Grid<3,T,DataT>::ivec_t( static_cast<uint32_t>( position.x + offset.x ) >> k,
 										  static_cast<uint32_t>( position.y + offset.y ) >> k,
 										  static_cast<uint32_t>( position.z + offset.z ) >> k );
+	}
+	static typename Grid<3,T,DataT>::ivec_t toGridPosition( uint32_t index, const typename Grid<3,T,DataT>::ivec_t &numCells )
+	{
+		return typename Grid<3,T,DataT>::ivec_t( index % numCells.x, ( index / numCells.x ) % numCells.y, ( index / numCells.x ) / numCells.y );
+	}
+	static typename Grid<3,T,DataT>::vec_t toPosition( const typename Grid<3,T,DataT>::ivec_t &gridPosition, const typename Grid<3,T,DataT>::vec_t &offset, uint32_t k )
+	{
+		return typename Grid<3,T,DataT>::vec_t( static_cast<T>( gridPosition.x << k ) - offset.x,
+											   static_cast<T>( gridPosition.y << k ) - offset.y,
+											   static_cast<T>( gridPosition.z << k ) - offset.z );
 	}
 	static uint32_t toIndex( const typename Grid<3,T,DataT>::ivec_t &gridPos, const typename Grid<3,T,DataT>::ivec_t &numCells )
 	{
@@ -171,7 +221,7 @@ struct GridTraits<3,T,DataT> {
 	{
 		return numCells.x * numCells.y * numCells.z;
 	}
-	static void rangeSearch( std::vector<typename Grid<3,T,DataT>::NodePair> *results, const typename Grid<3,T,DataT>::Vector &grid, const typename Grid<3,T,DataT>::vec_t &position, T radius, const typename Grid<3,T,DataT>::ivec_t &minCell, const typename Grid<3,T,DataT>::ivec_t &maxCell, const typename Grid<3,T,DataT>::ivec_t &numCells )
+	static void rangeSearch( std::vector<typename Grid<3,T,DataT>::NodePair> *results, const typename Grid<3,T,DataT>::Vector &bins, const typename Grid<3,T,DataT>::vec_t &position, T radius, const typename Grid<3,T,DataT>::ivec_t &minCell, const typename Grid<3,T,DataT>::ivec_t &maxCell, const typename Grid<3,T,DataT>::ivec_t &numCells )
 	{
 		T distSq;
 		T radiusSq = radius * radius;
@@ -179,7 +229,7 @@ struct GridTraits<3,T,DataT> {
 		for( pos.z = minCell.z; pos.z < maxCell.z; pos.z++ ) {
 			for( pos.y = minCell.y; pos.y < maxCell.y; pos.y++ ) {
 				for( pos.x = minCell.x; pos.x < maxCell.x; pos.x++ ) {
-					const std::vector<typename Grid<3,T,DataT>::Node*>& cell = grid[GridTraits<3,T,DataT>::toIndex( pos, numCells )];
+					const std::vector<typename Grid<3,T,DataT>::Node*>& cell = bins[GridTraits<3,T,DataT>::toIndex( pos, numCells )];
 					for( const auto& node : cell ) {
 						distSq = glm::distance2( position, node->getPosition() );
 						if( distSq < radiusSq ) {
@@ -190,7 +240,7 @@ struct GridTraits<3,T,DataT> {
 			}
 		}
 	}
-	static void rangeSearch( const std::function<void(typename Grid<3,T,DataT>::Node*,T)> &visitor, const typename Grid<3,T,DataT>::Vector &grid, const typename Grid<3,T,DataT>::vec_t &position, T radius, const typename Grid<3,T,DataT>::ivec_t &minCell, const typename Grid<3,T,DataT>::ivec_t &maxCell, const typename Grid<3,T,DataT>::ivec_t &numCells )
+	static void rangeSearch( const std::function<void(typename Grid<3,T,DataT>::Node*,T)> &visitor, const typename Grid<3,T,DataT>::Vector &bins, const typename Grid<3,T,DataT>::vec_t &position, T radius, const typename Grid<3,T,DataT>::ivec_t &minCell, const typename Grid<3,T,DataT>::ivec_t &maxCell, const typename Grid<3,T,DataT>::ivec_t &numCells )
 	{
 		T distSq;
 		T radiusSq = radius * radius;
@@ -198,7 +248,7 @@ struct GridTraits<3,T,DataT> {
 		for( pos.z = minCell.z; pos.z < maxCell.z; pos.z++ ) {
 			for( pos.y = minCell.y; pos.y < maxCell.y; pos.y++ ) {
 				for( pos.x = minCell.x; pos.x < maxCell.x; pos.x++ ) {
-					const std::vector<typename Grid<3,T,DataT>::Node*>& cell = grid[GridTraits<3,T,DataT>::toIndex( pos, numCells )];
+					const std::vector<typename Grid<3,T,DataT>::Node*>& cell = bins[GridTraits<3,T,DataT>::toIndex( pos, numCells )];
 					for( const auto& node : cell ) {
 						distSq = glm::distance2( position, node->getPosition() );
 						if( distSq < radiusSq ) {
@@ -209,6 +259,7 @@ struct GridTraits<3,T,DataT> {
 			}
 		}
 	}
+	typedef ci::AxisAlignedBox Bounds;
 };
 	
 template<uint8_t DIM, class T, class DataT>
@@ -220,7 +271,7 @@ Grid<DIM,T,DataT>::Node::Node( const vec_t &position, const DataT &data )
 template<uint8_t DIM, class T, class DataT>
 Grid<DIM,T,DataT>::Grid( uint32_t k )
 {
-	resize( vec_t(0), vec_t(1), k );
+	resize( vec_t(0), vec_t(0), k );
 }
 template<uint8_t DIM, class T, class DataT>
 Grid<DIM,T,DataT>::Grid( const vec_t &min, const vec_t &max, uint32_t k )
@@ -241,8 +292,8 @@ void Grid<DIM,T,DataT>::insert( const vec_t &position, const DataT &data )
 	// Convert the position to 1D index
 	uint32_t j = GridTraits<DIM,T,DataT>::toIndex( position, mOffset, mNumCells, mK );
 	// And try to insert it in the grid
-	if( j >= 0 && j < mGrid.size() )
-		mGrid[j].push_back( new Node( position, data ) );
+	if( j >= 0 && j < mBins.size() )
+		mBins[j].push_back( new Node( position, data ) );
 	else
 		throw GridOutOfBoundsException( ci::toString( position ) );
 }
@@ -255,15 +306,15 @@ void Grid<DIM,T,DataT>::insert( Node *node )
 	// Convert the position to 1D index
 	uint32_t j = GridTraits<DIM,T,DataT>::toIndex( node->getPosition(), mOffset, mNumCells, mK );
 	// And try to insert it in the grid
-	if( j >= 0 && j < mGrid.size() )
-		mGrid[j].push_back( node );
+	if( j >= 0 && j < mBins.size() )
+		mBins[j].push_back( node );
 	else
 		throw GridOutOfBoundsException( ci::toString( node->getPosition() ) );
 }
 template<uint8_t DIM, class T, class DataT>
 void Grid<DIM,T,DataT>::clear()
 {
-	for( auto& cell : mGrid ) {
+	for( auto& cell : mBins ) {
 		for( auto& node : cell ) {
 			if( node )
 				delete node;
@@ -275,7 +326,7 @@ template<uint8_t DIM, class T, class DataT>
 size_t Grid<DIM,T,DataT>::size() const
 {
 	size_t size = 0;
-	for( const auto& cell : mGrid ) {
+	for( const auto& cell : mBins ) {
 		size += cell.size();
 	}
 	return size;
@@ -317,7 +368,7 @@ std::vector<typename Grid<DIM,T,DataT>::NodePair> Grid<DIM,T,DataT>::rangeSearch
 	ivec_t minCell	= glm::max( GridTraits<DIM,T,DataT>::toGridPosition( min, mOffset, mK ), ivec_t( 0 ) );
 	ivec_t maxCell	= glm::min( ivec_t(1) + GridTraits<DIM,T,DataT>::toGridPosition( max, mOffset, mK ), mNumCells );
 	std::vector<typename Grid<DIM,T,DataT>::NodePair> results;
-	GridTraits<DIM,T,DataT>::rangeSearch( &results, mGrid, position, radius, minCell, maxCell, mNumCells );
+	GridTraits<DIM,T,DataT>::rangeSearch( &results, mBins, position, radius, minCell, maxCell, mNumCells );
 	return results;
 }
 template<uint8_t DIM, class T, class DataT>
@@ -328,7 +379,7 @@ void Grid<DIM,T,DataT>::rangeSearch( const vec_t &position, T radius, const std:
 	vec_t max       = glm::clamp( position + radiusVec, mMin, mMax + vec_t( 1 ) );
 	ivec_t minCell	= glm::max( GridTraits<DIM,T,DataT>::toGridPosition( min, mOffset, mK ), ivec_t( 0 ) );
 	ivec_t maxCell	= glm::min( ivec_t(1) + GridTraits<DIM,T,DataT>::toGridPosition( max, mOffset, mK ), mNumCells );
-	GridTraits<DIM,T,DataT>::rangeSearch( visitor, mGrid, position, radius, minCell, maxCell, mNumCells );
+	GridTraits<DIM,T,DataT>::rangeSearch( visitor, mBins, position, radius, minCell, maxCell, mNumCells );
 }
 	
 	
@@ -351,7 +402,7 @@ void Grid<DIM,T,DataT>::resize( uint32_t k )
 {
 	// If we have existing nodes we need to save them
 	std::vector<Node*> nodes;
-	for( auto& cell : mGrid ) {
+	for( auto& cell : mBins ) {
 		nodes.insert( nodes.end(), cell.begin(), cell.end() );
 		cell.clear();
 	}
@@ -361,7 +412,7 @@ void Grid<DIM,T,DataT>::resize( uint32_t k )
 	mCellSize   = 1 << k;
 	mOffset     = -mMin;
 	mNumCells   = glm::ceil( ( ( mMax - mMin ) + vec_t( 1 ) ) / static_cast<T>( mCellSize ) );
-	mGrid.resize( GridTraits<DIM,T,DataT>::gridSize( mNumCells ) );
+	mBins.resize( GridTraits<DIM,T,DataT>::gridSize( mNumCells ) );
 	
 	// Re-insert old nodes
 	for( const auto& node : nodes ) {
@@ -369,14 +420,49 @@ void Grid<DIM,T,DataT>::resize( uint32_t k )
 	}
 }
 	
+template<uint8_t DIM, class T, class DataT>
+const std::vector<typename Grid<DIM,T,DataT>::Node*> Grid<DIM,T,DataT>::getBinAt( const vec_t &position ) const
+{
+	// throw an exception if we're not in the grid bounds
+	if( glm::any( glm::greaterThan( position, mMax ) ) || glm::any( glm::lessThan( position, mMin ) ) )
+		throw GridOutOfBoundsException( ci::toString( position ) );
+	// get the converted position as a 1D index and return the corresponding bin
+	auto i = GridTraits<DIM,T,DataT>::toIndex( position, mOffset, mNumCells, mK );
+	return mBins[i];
+}
+template<uint8_t DIM, class T, class DataT>
+size_t Grid<DIM,T,DataT>::getBinIndexAt( const vec_t &position ) const
+{
+	// throw an exception if we're not in the grid bounds
+	if( glm::any( glm::greaterThan( position, mMax ) ) || glm::any( glm::lessThan( position, mMin ) ) )
+		throw GridOutOfBoundsException( ci::toString( position ) );
+	// return the converted position as a 1D index
+	return GridTraits<DIM,T,DataT>::toIndex( position, mOffset, mNumCells, mK );
+}
+template<uint8_t DIM, class T, class DataT>
+typename Grid<DIM,T,DataT>::vec_t Grid<DIM,T,DataT>::getBinCenter( size_t i ) const
+{
+	ivec_t gridPosition = GridTraits<DIM,T,DataT>::toGridPosition( i, mNumCells );
+	vec_t position = GridTraits<DIM,T,DataT>::toPosition( gridPosition, mOffset, mK );
+	return position + vec_t( static_cast<T>( mCellSize ) ) / static_cast<T>( 2 );
+}
+template<uint8_t DIM, class T, class DataT>
+typename Grid<DIM,T,DataT>::bounds_t Grid<DIM,T,DataT>::getBinBounds( size_t i ) const
+{
+	ivec_t gridPosition = GridTraits<DIM,T,DataT>::toGridPosition( i, mNumCells );
+	vec_t position = GridTraits<DIM,T,DataT>::toPosition( gridPosition, mOffset, mK );
+	return bounds_t( position, position + vec_t( static_cast<T>( mCellSize ) ) );
+}
+
+	
 //! Represents a 2D float Grid / Bin-lattice space partitioning structure
-template<class DataT> using Grid2 = Grid<2,float,DataT>;
+template<class DataT=uint32_t> using Grid2 = Grid<2,float,DataT>;
 //! Represents a 3D float Grid / Bin-lattice space partitioning structure
-template<class DataT> using Grid3 = Grid<3,float,DataT>;
+template<class DataT=uint32_t> using Grid3 = Grid<3,float,DataT>;
 //! Represents a 2D double Grid / Bin-lattice space partitioning structure
-template<class DataT> using dGrid2 = Grid<2,double,DataT>;
+template<class DataT=uint32_t> using dGrid2 = Grid<2,double,DataT>;
 //! Represents a 3D double Grid / Bin-lattice space partitioning structure
-template<class DataT> using dGrid3 = Grid<3,double,DataT>;
+template<class DataT=uint32_t> using dGrid3 = Grid<3,double,DataT>;
 	
 };
 
