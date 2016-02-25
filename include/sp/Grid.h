@@ -25,6 +25,7 @@
 #pragma once
 
 #include <vector>
+#include <limits>
 #include "cinder/AxisAlignedBox.h"
 #include "cinder/Exception.h"
 #include "cinder/Rect.h"
@@ -112,7 +113,7 @@ protected:
 	void insert( Node *node );
 	
 	Vector		mBins;
-	ivec_t		mNumCells;
+	ivec_t		mNumCells, mGridMin, mGridMax;
 	vec_t		mMin, mMax, mOffset;
 	uint32_t	mK, mCellSize;
 };
@@ -270,7 +271,7 @@ Grid<DIM,T,DataT>::Node::Node( const vec_t &position, const DataT &data )
 template<uint8_t DIM, class T, class DataT>
 Grid<DIM,T,DataT>::Grid( uint32_t k )
 {
-	resize( vec_t(0), vec_t(0), k );
+	resize( vec_t(std::numeric_limits<T>::max()), vec_t(std::numeric_limits<T>::min()), k );
 }
 template<uint8_t DIM, class T, class DataT>
 Grid<DIM,T,DataT>::Grid( const vec_t &min, const vec_t &max, uint32_t k )
@@ -387,6 +388,8 @@ void Grid<DIM,T,DataT>::resize( const vec_t &min, const vec_t &max )
 {
 	mMin = min;
 	mMax = max;
+	mGridMin = GridTraits<DIM,T,DataT>::toGridPosition( min, mOffset, mK );
+	mGridMax = GridTraits<DIM,T,DataT>::toGridPosition( max, mOffset, mK );
 	resize( mK );
 }
 template<uint8_t DIM, class T, class DataT>
@@ -394,6 +397,8 @@ void Grid<DIM,T,DataT>::resize( const vec_t &min, const vec_t &max, uint32_t k )
 {
 	mMin = min;
 	mMax = max;
+	mGridMin = GridTraits<DIM,T,DataT>::toGridPosition( min, mOffset, mK );
+	mGridMax = GridTraits<DIM,T,DataT>::toGridPosition( max, mOffset, mK );
 	resize( k );
 }
 template<uint8_t DIM, class T, class DataT>
@@ -423,20 +428,22 @@ template<uint8_t DIM, class T, class DataT>
 const std::vector<typename Grid<DIM,T,DataT>::Node*> Grid<DIM,T,DataT>::getBinAt( const vec_t &position ) const
 {
 	// throw an exception if we're not in the grid bounds
-	if( glm::any( glm::greaterThan( position, mMax ) ) || glm::any( glm::lessThan( position, mMin ) ) )
+	auto gridPos = GridTraits<DIM,T,DataT>::toGridPosition( position, mOffset, mK );
+	if( glm::any( glm::greaterThan( gridPos, mGridMax ) ) || glm::any( glm::lessThan( gridPos, mGridMin ) ) )
 		throw GridOutOfBoundsException( ci::toString( position ) );
 	// get the converted position as a 1D index and return the corresponding bin
-	auto i = GridTraits<DIM,T,DataT>::toIndex( position, mOffset, mNumCells, mK );
+	auto i = GridTraits<DIM,T,DataT>::toIndex( gridPos, mNumCells );
 	return mBins[i];
 }
 template<uint8_t DIM, class T, class DataT>
 size_t Grid<DIM,T,DataT>::getBinIndexAt( const vec_t &position ) const
 {
 	// throw an exception if we're not in the grid bounds
-	if( glm::any( glm::greaterThan( position, mMax ) ) || glm::any( glm::lessThan( position, mMin ) ) )
+	auto gridPos = GridTraits<DIM,T,DataT>::toGridPosition( position, mOffset, mK );
+	if( glm::any( glm::greaterThan( gridPos, mGridMax ) ) || glm::any( glm::lessThan( gridPos, mGridMin ) ) )
 		throw GridOutOfBoundsException( ci::toString( position ) );
 	// return the converted position as a 1D index
-	return GridTraits<DIM,T,DataT>::toIndex( position, mOffset, mNumCells, mK );
+	return GridTraits<DIM,T,DataT>::toIndex( gridPos, mNumCells );
 }
 template<uint8_t DIM, class T, class DataT>
 typename Grid<DIM,T,DataT>::vec_t Grid<DIM,T,DataT>::getBinCenter( size_t i ) const
