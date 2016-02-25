@@ -103,7 +103,7 @@ public:
 	//! Returns the maximum of the Grid
 	vec_t getMax() const { return mMax; }
 	//! Returns the bounds of the Grid
-	bounds_t getBounds() const { return bounds_t( mMin, mMax ); }
+	bounds_t getBounds() const;
 	
 	~Grid();
 protected:
@@ -458,6 +458,13 @@ typename Grid<DIM,T,DataT>::bounds_t Grid<DIM,T,DataT>::getBinBounds( size_t i )
 	ivec_t gridPosition = GridTraits<DIM,T,DataT>::toGridPosition( i, mNumCells );
 	vec_t position = GridTraits<DIM,T,DataT>::toPosition( gridPosition, mOffset, mK );
 	return bounds_t( position, position + vec_t( static_cast<T>( mCellSize ) ) );
+}
+template<uint8_t DIM, class T, class DataT>
+typename Grid<DIM,T,DataT>::bounds_t Grid<DIM,T,DataT>::getBounds() const
+{
+	vec_t min = GridTraits<DIM,T,DataT>::toPosition( mGridMin, mOffset, mK );
+	vec_t max = GridTraits<DIM,T,DataT>::toPosition( mGridMax + ivec_t( 1 ), mOffset, mK );
+	return bounds_t( min, max );
 }
 
 	
