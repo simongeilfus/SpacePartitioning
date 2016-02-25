@@ -71,6 +71,7 @@ public:
 	
 	using NodePair = std::pair<Node*,T>;
 	using Vector = std::vector<std::vector<Node*>>;
+	using bounds_t = typename GridTraits<DIM,T,DataT>::Bounds;
 	
 	//! Returns a pointer to the nearest Node with its square distance to the position
 	Node* nearestNeighborSearch( const vec_t &position, T *distanceSq = nullptr ) const;
@@ -78,8 +79,6 @@ public:
 	std::vector<NodePair> rangeSearch( const vec_t &position, T radius ) const;
 	//! Returns a vector of Nodes within a radius along with their square distances to the position
 	void rangeSearch( const vec_t &position, T radius, const std::function<void(Node*,T)> &visitor ) const;
-	
-	using bounds_t = typename GridTraits<DIM,T,DataT>::Bounds;
 	
 	//! Returns the number of bins of the grid
 	size_t getNumBins() const { return mBins.size(); }
@@ -102,7 +101,7 @@ public:
 	vec_t getMin() const { return mMin; }
 	//! Returns the maximum of the Grid
 	vec_t getMax() const { return mMax; }
-	//! Returns the minimum and the maximum of the Grid
+	//! Returns the bounds of the Grid
 	bounds_t getBounds() const { return bounds_t( mMin, mMax ); }
 	
 	~Grid();
