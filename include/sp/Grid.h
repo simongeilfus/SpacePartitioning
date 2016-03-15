@@ -153,7 +153,7 @@ struct GridTraits<2,T,DataT> {
 	}
 	static uint32_t gridSize( const typename Grid<2,T,DataT>::vec_t &numCells )
 	{
-		return numCells.x * numCells.y;
+		return uint32_t( numCells.x * numCells.y );
 	}
 	static void rangeSearch( std::vector<typename Grid<2,T,DataT>::NodePair> *results, const typename Grid<2,T,DataT>::Vector &grid, const typename Grid<2,T,DataT>::vec_t &position, T radius, const typename Grid<2,T,DataT>::ivec_t &minCell, const typename Grid<2,T,DataT>::ivec_t &maxCell, const typename Grid<2,T,DataT>::ivec_t &numCells )
 	{
