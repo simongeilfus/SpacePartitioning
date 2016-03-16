@@ -26,6 +26,7 @@
 
 #include <vector>
 #include <limits>
+#include <algorithm>
 #include "cinder/AxisAlignedBox.h"
 #include "cinder/Exception.h"
 #include "cinder/Rect.h"
@@ -40,6 +41,7 @@ template<uint8_t DIM, class T, class DataT> struct GridTraits {};
 template<uint8_t DIM, class T, class DataT>
 class Grid {
 public:
+	class Node;
 	using vec_t = typename ci::VECDIM<DIM, T>::TYPE;
 	using ivec_t = typename ci::VECDIM<DIM, int>::TYPE;
 	
@@ -49,11 +51,15 @@ public:
 	Grid( const vec_t &min, const vec_t &max, uint32_t k = 3 );
 	
 	//! Inserts a new point in the Grid with optional user data
-	void insert( const vec_t &position, const DataT &data = DataT() );
+	void insert( const vec_t &position, DataT data = DataT() );
 	//! Removes all the nodes from the Grid structure
 	void clear();
 	//! Returns the size of the Grid
 	size_t size() const;
+	//! Removes a Node from the Grid
+	void erase( Node* node );
+	//! Finds and Returns the Node containing this data
+	Node* find( DataT data );
 	
 	//! Represents a single element of the Grid
 	class Node {
@@ -61,12 +67,13 @@ public:
 		//! Returns the position of the node
 		vec_t getPosition() const { return mPosition; }
 		//! Returns the user data
-		const DataT &getData() const { return mData; }
+		DataT getData() const { return mData; }
 		
-		Node( const vec_t &position, const DataT &data );
+		Node( const vec_t &position, DataT data, std::vector<Node*> *bin );
 	protected:
 		vec_t mPosition;
 		DataT mData;
+		std::vector<Node*>* mBinPtr;
 		friend class Grid;
 	};
 	
@@ -263,8 +270,8 @@ struct GridTraits<3,T,DataT> {
 };
 	
 template<uint8_t DIM, class T, class DataT>
-Grid<DIM,T,DataT>::Node::Node( const vec_t &position, const DataT &data )
-: mPosition( position ), mData( data )
+Grid<DIM,T,DataT>::Node::Node( const vec_t &position, DataT data, std::vector<Node*> *bin )
+: mPosition( position ), mData( data ), mBinPtr( bin )
 {
 }
 	
@@ -284,7 +291,7 @@ Grid<DIM,T,DataT>::~Grid(){
 }
 	
 template<uint8_t DIM, class T, class DataT>
-void Grid<DIM,T,DataT>::insert( const vec_t &position, const DataT &data )
+void Grid<DIM,T,DataT>::insert( const vec_t &position, DataT data )
 {
 	// Check if it fits the size of the grid's container
 	if( glm::any( glm::greaterThan( position, mMax ) ) || glm::any( glm::lessThan( position, mMin ) ) )
@@ -292,8 +299,9 @@ void Grid<DIM,T,DataT>::insert( const vec_t &position, const DataT &data )
 	// Convert the position to 1D index
 	uint32_t j = GridTraits<DIM,T,DataT>::toIndex( position, mOffset, mNumCells, mK );
 	// And try to insert it in the grid
-	if( j >= 0 && j < mBins.size() )
-		mBins[j].push_back( new Node( position, data ) );
+	if( j >= 0 && j < mBins.size() ) {
+		mBins[j].push_back( new Node( position, data, &mBins[j] ) );
+	}
 	else
 		throw GridOutOfBoundsException( ci::toString( position ) );
 }
@@ -331,6 +339,28 @@ size_t Grid<DIM,T,DataT>::size() const
 	}
 	return size;
 }
+template<uint8_t DIM, class T, class DataT>
+void Grid<DIM,T,DataT>::erase( typename Grid<DIM,T,DataT>::Node* node )
+{
+	auto it = std::find( node->mBinPtr->begin(), node->mBinPtr->end(), node );
+	if( it != node->mBinPtr->end() ) {
+		node->mBinPtr->erase( it );
+		delete node;
+	}
+}
+template<uint8_t DIM, class T, class DataT>
+typename Grid<DIM,T,DataT>::Node* Grid<DIM,T,DataT>::find( DataT data )
+{
+	for( auto &cell : mBins ) {
+		for( auto &node : cell ) {
+			if( node->getData() == data ) {
+				return node;
+			}
+		}
+	}
+	return nullptr;
+}
+	
 // TODO: Must be a better way to do this
 template<uint8_t DIM, class T, class DataT>
 typename Grid<DIM,T,DataT>::Node* Grid<DIM,T,DataT>::nearestNeighborSearch( const vec_t &position, T *distanceSq ) const
@@ -464,7 +494,6 @@ typename Grid<DIM,T,DataT>::bounds_t Grid<DIM,T,DataT>::getBounds() const
 	vec_t max = GridTraits<DIM,T,DataT>::toPosition( mGridMax + ivec_t( 1 ), mOffset, mK );
 	return bounds_t( min, max );
 }
-
 	
 //! Represents a 2D float Grid / Bin-lattice space partitioning structure
 template<class DataT=uint32_t> using Grid2 = Grid<2,float,DataT>;
