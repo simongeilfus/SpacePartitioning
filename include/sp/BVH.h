@@ -35,7 +35,7 @@
 
 namespace SpacePartitioning {
 
-//! Represents a Bounding Volume Hierarchy for fast Ray-Object intersection tests.
+//! Represents a Bounding Volume Hierarchy for fast Ray-Object intersection tests. T needs to implement "ci::AxisAlignedBox getBounds() const", "vec3 getCentroid() const" and "bool intersect( const Ray& r, float* dist ) const" or you need to specialize BVHObjectTraits with the relevant functions
 template<class T>
 class BVH {
 public:	
@@ -44,12 +44,18 @@ public:
 	//! Constructs a Bounding Volume Hierarchy object from a set of objects pointers
 	BVH( std::vector<T> *objects, uint32_t leafSize = 4 );
 		
-	//! Returns the list of objects found within a radius
-	std::deque<T*> rangeSearch( const ci::vec3 &position, float radius );
+	//! Returns the list of objects found within a radius around a position
+	std::deque<T*>	rangeSearch( const ci::vec3 &position, float radius );
+	//! Returns the list of objects found within a radius around a position
+	void			rangeSearch( const ci::vec3 &position, float radius, const std::function<bool(T*)> &rangeVisitor );
 	//! Returns the list of objects found within the range of a Sphere
-	std::deque<T*> rangeSearch( const ci::Sphere &range );
+	std::deque<T*>	rangeSearch( const ci::Sphere &range );
+	//! Returns the list of objects found within the range of a Sphere
+	void			rangeSearch( const ci::Sphere &range, const std::function<bool(T*)> &rangeVisitor );
 	//! Returns the list of objects found within the bounds of an AxisAlignedBox
-	std::deque<T*> rangeSearch( const ci::AxisAlignedBox &range );
+	std::deque<T*>	rangeSearch( const ci::AxisAlignedBox &range );
+	//! Returns the list of objects found within the bounds of an AxisAlignedBox
+	void			rangeSearch( const ci::AxisAlignedBox &range, const std::function<bool(T*)> &rangeVisitor );
 	
 	//! Represents the result of a raycasting test
 	class RaycastResult {
@@ -343,6 +349,12 @@ std::deque<T*> BVH<T>::rangeSearch( const ci::vec3 &position, float radius )
 }
 
 template<class T>
+void BVH<T>::rangeSearch( const ci::vec3 &position, float radius, const std::function<bool( T* )> &rangeVisitor )
+{
+	return rangeSearch( ci::Sphere( position, radius, rangeVisitor ) );
+}
+
+template<class T>
 std::deque<T*> BVH<T>::rangeSearch( const ci::Sphere &sphere )
 {
 	std::deque<T*> results;
@@ -404,6 +416,65 @@ std::deque<T*> BVH<T>::rangeSearch( const ci::Sphere &sphere )
 }
 
 template<class T>
+void BVH<T>::rangeSearch( const ci::Sphere &range, const std::function<bool( T* )> &rangeVisitor )
+{
+	// return an empty vector if BVH has not been initialized
+	if( mNodes.empty() ) {
+		return;
+	}
+
+	// initialize the working structure and temp values
+	std::stack<TraversalNode> stack;
+	uint32_t closer, farther;
+	float sqRadius = sphere.getRadius() * sphere.getRadius();
+	
+	// push the root node
+	stack.push( TraversalNode( 0, std::numeric_limits<float>::lowest() ) );
+	
+	while( ! stack.empty() ) {
+		// pop the current node
+		const TraversalNode &traversalNode = stack.top();
+		const Node &node( mNodes[traversalNode.mIndex] );
+		stack.pop();
+		
+		// if the node is a leaf check its objects are within the range
+		if( node.mRightOffset == 0 ) {
+			for( uint32_t i = 0; i < node.mNumObjects; ++i ) {
+				const T& obj = (*mObjects)[node.mStart+i];
+				if( glm::distance2( obj.getCentroid(), sphere.getCenter() ) < sqRadius ) {
+					if( rangeVisitor( &(*mObjects)[node.mStart+i] ) ) {
+						return;
+					}
+				}
+			}
+		} 
+		else {
+			// check if intersecting with both bounding boxes
+			bool hit0 = mNodes[traversalNode.mIndex+1].mBounds.intersects( sphere );
+			bool hit1 = mNodes[traversalNode.mIndex+node.mRightOffset].mBounds.intersects( sphere );
+			if( hit0 && hit1 ) {
+				// find out which node is farther
+				closer = traversalNode.mIndex+1;
+				farther = traversalNode.mIndex+node.mRightOffset;
+				if( glm::distance2( mNodes[traversalNode.mIndex+node.mRightOffset].mBounds.getCenter(), sphere.getCenter() ) < glm::distance2( mNodes[traversalNode.mIndex+1].mBounds.getCenter(), sphere.getCenter() ) ) {
+					std::swap( closer, farther );
+				}
+				// and push it first
+				stack.push( TraversalNode( farther, 0.0f ) );
+				stack.push( TraversalNode( closer, 0.0f ) );
+			}
+			else if( hit0 ) {
+				stack.push( TraversalNode( traversalNode.mIndex + 1, 0.0f ) );
+			}
+			else if( hit1 ) {
+				stack.push( TraversalNode( traversalNode.mIndex + node.mRightOffset, 0.0f ) );
+			}
+		}
+		
+	}
+}
+
+template<class T>
 std::deque<T*> BVH<T>::rangeSearch( const ci::AxisAlignedBox &range )
 {
 	std::deque<T*> results;
@@ -461,6 +532,64 @@ std::deque<T*> BVH<T>::rangeSearch( const ci::AxisAlignedBox &range )
 	}
 
 	return results;
+}
+
+template<class T>
+void BVH<T>::rangeSearch( const ci::AxisAlignedBox &range, const std::function<bool( T* )> &rangeVisitor )
+{
+	// return an empty vector if BVH has not been initialized
+	if( mNodes.empty() ) {
+		return;
+	}
+
+	// initialize the working structure and temp values
+	std::stack<TraversalNode> stack;
+	uint32_t closer, farther;
+	
+	// push the root node
+	stack.push( TraversalNode( 0, std::numeric_limits<float>::lowest() ) );
+	
+	while( ! stack.empty() ) {
+		// pop the current node
+		const TraversalNode &traversalNode = stack.top();
+		const Node &node( mNodes[traversalNode.mIndex] );
+		stack.pop();
+		
+		// if the node is a leaf check its objects are within the range
+		if( node.mRightOffset == 0 ) {
+			for( uint32_t i = 0; i < node.mNumObjects; ++i ) {
+				const T& obj = (*mObjects)[node.mStart+i];
+				if( obj.getBounds().intersects( range ) ) {
+					if( rangeVisitor( &(*mObjects)[node.mStart+i] ) ) {
+						return;
+					}
+				}
+			}
+		} 
+		else {
+			// check if intersecting with both bounding boxes
+			bool hit0 = mNodes[traversalNode.mIndex+1].mBounds.intersects( range );
+			bool hit1 = mNodes[traversalNode.mIndex+node.mRightOffset].mBounds.intersects( range );
+			if( hit0 && hit1 ) {
+				// find out which node is farther
+				closer = traversalNode.mIndex+1;
+				farther = traversalNode.mIndex+node.mRightOffset;
+				if( glm::distance2( mNodes[traversalNode.mIndex+node.mRightOffset].mBounds.getCenter(), range.getCenter() ) < glm::distance2( mNodes[traversalNode.mIndex+1].mBounds.getCenter(), range.getCenter() ) ) {
+					std::swap( closer, farther );
+				}
+				// and push it first
+				stack.push( TraversalNode( farther, 0.0f ) );
+				stack.push( TraversalNode( closer, 0.0f ) );
+			}
+			else if( hit0 ) {
+				stack.push( TraversalNode( traversalNode.mIndex + 1, 0.0f ) );
+			}
+			else if( hit1 ) {
+				stack.push( TraversalNode( traversalNode.mIndex + node.mRightOffset, 0.0f ) );
+			}
+		}
+		
+	}
 }
 
 };
