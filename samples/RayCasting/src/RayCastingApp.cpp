@@ -13,10 +13,17 @@ using namespace std;
 // The BVH class needs to have access to 3 functions; getBounds, getCentroid and intersect
 class Triangle {
 public:
-	ci::AxisAlignedBox getBounds() const { return AxisAlignedBox( min( a, min( b, c ) ), max( a, max( b, c ) ) ); }
-	vec3 getCentroid() const { return ( a + b + c ) / 3.0f; }
-	bool intersect( const Ray& r, float* dist ) const { return r.calcTriangleIntersection( a, b, c, dist ); }
-	vec3 a, b, c;
+	Triangle( const vec3 &a, const vec3 &b, const vec3 &c ) : mVertices( { a, b, c } ), mBounds( min( a, min( b, c ) ), max( a, max( b, c ) ) ), mCentroid( ( a + b + c ) / 3.0f ) {}
+	ci::AxisAlignedBox getBounds() const { return mBounds; }
+	vec3 getCentroid() const { return mCentroid; }
+	bool intersect( const Ray& r, float* dist ) const { return r.calcTriangleIntersection( mVertices[0], mVertices[1], mVertices[2], dist ); }
+	vec3 getA() const { return mVertices[0]; }
+	vec3 getB() const { return mVertices[1]; }
+	vec3 getC() const { return mVertices[2]; }
+protected:
+	AxisAlignedBox mBounds;
+	vec3 mCentroid;
+	array<vec3,3> mVertices;
 };
 
 // If the class doesn't provide those functions you can specialize BVHObjectTraits to specify your own
@@ -24,7 +31,7 @@ public:
 //	template<>
 //	class BVHObjectTraits<Triangle> {
 //	public:
-//		static bool intersect( const Triangle &t, const Ray& r, float* dist ) { return r.calcTriangleIntersection( t.a, t.b, t.c, dist ); }
+//		static bool intersect( const Triangle &t, const Ray& r, float* dist ) { return r.calcTriangleIntersection( t.getA(), t.getB(), t.getC(), dist ); }
 //	};
 //} }
 
@@ -55,9 +62,9 @@ void RayCastingApp::setup()
 
 	// store the triangles in a vector so we can use them with the bounding volume hierarchy
 	for( size_t i = 0; i < mesh.getNumTriangles(); ++i ) {
-		Triangle t;
-		mesh.getTriangleVertices( i, &t.a, &t.b, &t.c );
-		mTriangles.push_back( t );
+		vec3 a, b, c;
+		mesh.getTriangleVertices( i, &a, &b, &c );
+		mTriangles.push_back( Triangle( a, b, c ) );
 	}
 
 	// create the bounding volume hierarchy
@@ -78,18 +85,33 @@ void RayCastingApp::draw()
 	auto mousePos = clamp( vec2( getMousePos() - getWindowPos() ), vec2( 0.0f ), vec2( getWindowSize() ) );
 	auto ray = mCamera.generateRay( mousePos, getWindowSize() );
 	sp::BVH<Triangle>::RaycastResult result;
+	
+	Timer timer( true );
+	bool hit = mBvh.raycast( ray, &result );
+	timer.stop();
+
 	// if there's a hit draw the triangle at the intersection
-	if( mBvh.raycast( ray, &result ) ) {
+	if( hit ) {
 		gl::ScopedDepth scopedDepth( false );
 		gl::ScopedColor scopedColor( ColorA::black() );
 		gl::VertBatch triangle;
 		triangle.begin( GL_LINE_LOOP );
-		triangle.vertex( result.getObject()->a );
-		triangle.vertex( result.getObject()->b );
-		triangle.vertex( result.getObject()->c );
+		triangle.vertex( result.getObject()->getA() );
+		triangle.vertex( result.getObject()->getB() );
+		triangle.vertex( result.getObject()->getC() );
 		triangle.end();
 		triangle.draw();
 	}
+
+	// get timing avg on 30 frames
+	static int framesAvg = 0;
+	static float timeAvg = 0.0f, timeAcc = 0.0f;
+	if( ++framesAvg > 30 ) {
+		timeAvg = timeAcc / 30.0f;
+		timeAcc = framesAvg = 0;
+	}
+	timeAcc += timer.getSeconds(); 
+	getWindow()->setTitle( "RayCasting " + to_string( timeAvg * 1000.0 ) + "ms " );
 }
 
 CINDER_APP( RayCastingApp, RendererGl( RendererGl::Options().msaa( 8 ) ) )

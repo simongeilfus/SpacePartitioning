@@ -181,7 +181,7 @@ void BVH<T>::build()
 	nodes.reserve( mObjects->size() * 2 );
 	
 	// push the root node
-	BuildNode root( -1, 0, mObjects->size() );
+	BuildNode root( -1, 0, static_cast<uint32_t>( mObjects->size() ) );
 	stack.push( root );
 
 	while( ! stack.empty() ) {
