@@ -1,0 +1,58 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{01DB737F-AEA7-4B55-B40F-86BF08A401CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\SpacePartitioning">
+      <UniqueIdentifier>{AEA5C364-DEA6-4270-B7DE-D4A73CCADA0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\SpacePartitioning\include">
+      <UniqueIdentifier>{8CABDA32-A24C-4BE5-8F81-EDFD66D4CD92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\SpacePartitioning\include\sp">
+      <UniqueIdentifier>{904535C9-6910-48B2-80BE-38378DDCDE69}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\RayCastingApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RayCastingApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\sp\Grid.h">
+      <Filter>Blocks\SpacePartitioning\include\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\sp\HashTable.h">
+      <Filter>Blocks\SpacePartitioning\include\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\sp\KdTree.h">
+      <Filter>Blocks\SpacePartitioning\include\sp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
