@@ -416,7 +416,7 @@ std::deque<T*> BVH<T>::rangeSearch( const ci::Sphere &sphere )
 }
 
 template<class T>
-void BVH<T>::rangeSearch( const ci::Sphere &range, const std::function<bool( T* )> &rangeVisitor )
+void BVH<T>::rangeSearch( const ci::Sphere &sphere, const std::function<bool( T* )> &rangeVisitor )
 {
 	// return an empty vector if BVH has not been initialized
 	if( mNodes.empty() ) {
