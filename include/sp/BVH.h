@@ -156,9 +156,9 @@ namespace details {
 	template<class T> 
 	class BVHObjectTraits {
 	public:
-		static ci::AxisAlignedBox getBounds( const T &obj ) { static_assert( std::false_type::value, "If the BVH template type doesn't have a \"getBounds\" member function, you need to specialize SpacePartitioning::details::BVHObjectTraits<> to provide an alternative." ); }
-		static ci::vec3 getCentroid( const T &obj ) { static_assert( std::false_type::value, "If the BVH template type doesn't have a \"getCentroid\" member function, you need to specialize SpacePartitioning::details::BVHObjectTraits<> to provide an alternative." ); }
-		static bool intersect( const T &obj, const ci::Ray &ray, float *dist ) { static_assert( std::false_type::value, "If the BVH template type doesn't have a \"intersect\" member function, you need to specialize SpacePartitioning::details::BVHObjectTraits<> to provide an alternative." ); }
+		static ci::AxisAlignedBox getBounds( const T &obj ) { static_assert( sizeof(T) == -1, "If the BVH template type doesn't have a \"getBounds\" member function, you need to specialize SpacePartitioning::details::BVHObjectTraits<> to provide an alternative." ); }
+		static ci::vec3 getCentroid( const T &obj ) { static_assert( sizeof(T) == -1, "If the BVH template type doesn't have a \"getCentroid\" member function, you need to specialize SpacePartitioning::details::BVHObjectTraits<> to provide an alternative." ); }
+		static bool intersect( const T &obj, const ci::Ray &ray, float *dist ) { static_assert( sizeof(T) == -1, "If the BVH template type doesn't have a \"intersect\" member function, you need to specialize SpacePartitioning::details::BVHObjectTraits<> to provide an alternative." ); }
 	};
 	
 	template<typename T, typename std::enable_if<BVHObjectHasGetBounds<T>::value,int>::type = 0>
